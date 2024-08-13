@@ -1,0 +1,106 @@
+#include <iostream>;
+using namespace std;
+class MyS {
+private:
+	char* str;
+	int Size;
+	
+public:
+	MyS() {
+		str = nullptr;
+	}
+	MyS(const char* stre) {
+		Size = strlen(stre);
+		str = new char[Size + 1];
+		for (int i = 0; i < Size; i++) {
+			str[i] = stre[i];
+		}
+		str[Size] = '\0';
+	}
+	~MyS() {
+		cout << "вызван деструктор  === " << this->str << endl;
+		delete[] this->str; 
+	}
+	void Print() {
+		cout << this->str;
+	}
+	void ScetBukv() {
+		Size = strlen(this->str);
+		const char* alphabite = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		const int nsize = strlen(alphabite);
+		char* alpab = new char[nsize];
+		int* alpasc = new int[nsize];
+		for (int i = 0; i < nsize; i++) {
+			alpab[i] = alphabite[i];
+		}
+		for (int i = 0; i < nsize; i++) {
+			alpasc[i] = 0;
+		}
+		for (int j = 0; j < Size; j++) {
+			for (int c = 0; c < nsize; c++) {
+				if (str[j] == alphabite[c]) {
+					alpasc[c] = alpasc[c] + 1;
+				}
+			}
+		}
+		for (int i = 0; i < nsize; i++) {
+			if (alpasc[i] !=  0) {
+				cout << alpab[i] << " === " << alpasc[i] << endl;
+			}
+		}
+		cout << "слово " << this->str << " состоит из " << Size << " букв " << endl;
+		delete[] alpab;
+		delete[] alpasc;
+		
+	}
+	MyS(MyS&& other) {
+		this->Size = other.Size;
+		this->str = other.str;
+		other.str = nullptr;
+	}
+	MyS operator +(const MyS& other) {
+		MyS newstr;
+		int thisSize = strlen(this->str);
+		int otherSize = strlen(other.str);
+		int nsize = thisSize + otherSize + 1;
+		newstr.str = new char[nsize];
+		int i = 0;
+		for (i; i < thisSize; i++) {
+			newstr.str[i] = this->str[i];
+		}
+		for (int j = 0; j < otherSize; j++) {
+			newstr.str[i] = other.str[j];
+			i++;
+		}
+		newstr.str[thisSize + otherSize] = '\0';
+		return newstr;
+	}
+	void Naiznanka() {
+		MyS novstr;
+		Size = strlen(this->str);
+		novstr.str = new char[Size + 1];
+		for (int i = 0; i < Size; i++) {
+			int code = int(str[i]);
+			if (65 <= code << 90) {
+				char cod = static_cast<char>(code + 32);
+				novstr.str[i] = cod;
+			}
+			else {
+				char cod = static_cast<char>(code - 32);
+				novstr.str[i] = cod;
+			}
+		}
+		novstr.str[Size] = '\0';
+		cout << "перевернутое слово === " << novstr.str << endl;;
+	}
+};
+int main() {
+	setlocale(LC_ALL, "RU");
+	MyS el("mIshKa");
+	MyS el2("shishka");
+
+	MyS el3 = el2 + el;
+	el3.ScetBukv();
+	el3.Naiznanka();
+	return 0;
+}
