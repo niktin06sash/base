@@ -1,0 +1,292 @@
+#include <iostream>;
+#include < string>;
+using namespace std;
+
+class GroupName;
+class GroupXaracter;
+class GroupMatch;
+class Comand {
+private:
+	string* teams;
+public:
+
+	Comand(){
+		teams = new string[8];
+		teams[0] = "Barcelona";
+		teams[1] = "Manchester City";
+		teams[2] = "Inter Milan";
+		teams[3] = "PSG";
+		teams[4] = "Real Madrid";
+		teams[5] = "Chelsea";
+		teams[6] = "Juventus";
+		teams[7] = "Bayern Munich";
+	}
+	~Comand() {
+		cout << "вызван деструктор " << teams << endl;
+		delete[] this->teams;
+	}
+	friend GroupName;
+	friend GroupXaracter;
+	friend GroupMatch;
+};
+class Comand;
+class GroupXaracter;
+class GroupName {
+private:
+	string** grn;
+public:
+	GroupName(Comand& value) {
+		grn = new string * [2];
+		int start = 0;
+		for (int i = 0; i < 2; i++) {
+			grn[i] = new string[4];
+		}
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 4; j++) {
+				grn[i][j] = value.teams[start];
+				start++;
+			}
+		}
+	}
+	~GroupName() {
+		cout << "вызван деструктор " << grn << endl;
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор " << grn[i] << endl;
+			delete[] grn[i];
+		}
+		delete[] grn;
+	}
+	friend Comand;
+	friend GroupXaracter;
+	friend GroupMatch;
+
+};
+class GroupXaracter {
+private:
+	int** znacbal;
+public:
+
+	GroupXaracter() {
+		znacbal = new int* [2];
+		for (int i = 0; i < 2; i++) {
+			znacbal[i] = new int[4];
+		}
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 4; j++) {
+				znacbal[i][j] = 0;
+			}
+		}
+	}
+	void TableSort();
+	~GroupXaracter() {
+		cout << "вызван деструктор " << znacbal << endl;
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор " << znacbal[i] << endl;
+			delete[] znacbal[i];
+		}
+		delete[] znacbal;
+	}
+	friend GroupMatch;
+};
+class GroupMatch {
+private:
+	string** calendar;
+	string* namematch;
+	string te1;
+	string te2;
+	int ma = 0;
+	int kom1si;
+	int kom2si;
+	int index1G;
+	int index2G;
+	int index1S;
+	int index2S;
+public:
+
+	GroupMatch(GroupName& vyv) {
+		calendar = new string * [2];
+		for (int i = 0; i < 2; i++) {
+			calendar[i] = new string[12];
+		}
+		CalendarS(vyv);
+		CalendarPrisv(vyv);
+	}
+	void CalendarS(GroupName& v) {
+		calendar[0][0] = v.grn[0][0] + "---" + v.grn[0][2];
+		calendar[0][1] = v.grn[0][1] + "---" + v.grn[0][3];
+		calendar[0][2] = v.grn[0][3] + "---" + v.grn[0][0];
+		calendar[0][3] = v.grn[0][2] + "---" + v.grn[0][1];
+		calendar[0][4] = v.grn[0][0] + "---" + v.grn[0][1];
+		calendar[0][5] = v.grn[0][3] +  "---" + v.grn[0][2];
+		calendar[0][6] = v.grn[0][1] + "---" + v.grn[0][0];
+		calendar[0][7] = v.grn[0][2] + "---" + v.grn[0][3];
+		calendar[0][8] = v.grn[0][0] + "---" + v.grn[0][3];
+		calendar[0][9] = v.grn[0][1] + "---" + v.grn[0][2];
+		calendar[0][10] = v.grn[0][2] + "---" + v.grn[0][0];
+		calendar[0][11] = v.grn[0][3] + "---" + v.grn[0][1];
+
+		calendar[1][0] = v.grn[1][0] + "---" + v.grn[1][2];
+		calendar[1][1] = v.grn[1][1] + "---" + v.grn[1][3];
+		calendar[1][2] = v.grn[1][3] + "---" + v.grn[1][0];
+		calendar[1][3] = v.grn[1][2] + "---" + v.grn[1][1];
+		calendar[1][4] = v.grn[1][0] + "---" + v.grn[1][1];
+		calendar[1][5] = v.grn[1][3] + "---" + v.grn[1][2];
+		calendar[1][6] = v.grn[1][1] + "---" + v.grn[1][0];
+		calendar[1][7] = v.grn[1][2] + "---" + v.grn[1][3];
+		calendar[1][8] = v.grn[1][0] + "---" + v.grn[1][3];
+		calendar[1][9] = v.grn[1][1] + "---" + v.grn[1][2];
+		calendar[1][10] = v.grn[1][2] + "---" + v.grn[1][0];
+		calendar[1][11] = v.grn[1][3] + "---" + v.grn[1][1];
+	}
+
+	void CalendarV(GroupName& v) {
+		int start1 = 0;
+		int start2 = 1;
+		int tour = 1;
+		for (int i = 0; i < 6; i++) {
+			cout << tour << " Тур --- " << endl;
+			cout << calendar[0][start1] << endl;
+			cout << calendar[0][start2] << endl;
+			cout << calendar[1][start1] << endl;
+			cout << calendar[1][start2] << endl;
+			tour++;
+			start1 = start1 + 2;
+			start2 = start2 + 2;
+		}
+
+	}
+	void CalendarPrisv(GroupName& v) {
+		namematch = new string[24];
+		int start1 = 0;
+		int start2 = 1;
+		int j = 0;
+		for (int i = 0; i < 6; i++) {
+			namematch[j] = calendar[0][start1];
+			j++;
+			namematch[j] = calendar[0][start2];
+			j++;
+			namematch[j] = calendar[1][start1];
+			j++;
+			namematch[j] = calendar[1][start2];
+			j++;
+			start1 = start1 + 2;
+			start2 = start2 + 2;
+		}
+	}
+	void PrintItog(GroupName& value, GroupXaracter& ve) {
+		for (int i = 0; i < 2; i++) {
+			cout << i + 1 << " Группа " << endl;
+			for (int j = 0; j < 4; j++) {
+				cout << j + 1 << ". " << value.grn[i][j] << " = " << ve.znacbal[i][j] << endl;
+			}
+			cout << "------" << endl;
+		}
+	}
+	void PlayMatch(GroupName& value, GroupXaracter& ve) {
+		cout << namematch[ma] << endl;
+		this->te1 = FirstTeam();
+		int dle = te1.size();
+		this->te2 = SecondTeam(dle + 3);
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (te1 == value.grn[i][j]) {
+					index1G = i;
+					index1S = j;
+				}
+			}
+		}
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (te2== value.grn[i][j]) {
+					this -> index2G = i;
+					this -> index2S = j;
+				}
+			}
+		}
+		cout << "Введите итоговый счет встречи(в формате 'количество голов команды 1-количество голов команды 2' === ";
+		char scet[4];
+		cin >> scet;
+		char kom1sc = scet[0];
+		char kom2sc = scet[2];
+		kom1si = int(scet[0]) - 48;
+		kom2si = int(scet[2]) - 48;
+		if (kom1si > kom2si) {
+			ve.znacbal[index1G][index1S] = ve.znacbal[index1G][index1S] + 3;
+		}
+		else if (kom1si < kom2si) {
+			ve.znacbal[index2G][index2S] = ve.znacbal[index2G][index2S] + 3;
+		}
+		else if (kom1si == kom2si) {
+			ve.znacbal[index1G][index1S] = ve.znacbal[index1G][index1S] + 1;
+			ve.znacbal[index2G][index2S] = ve.znacbal[index2G][index2S] + 1;
+		}
+		SortTable(value, ve);
+		ma++;
+	}
+	void SortTable(GroupName& value, GroupXaracter& ve) {
+		for (int j = 0; j < 2; j++) {
+			for (int i = 1; i < 4; i++) {
+				int k = i;
+				while (k > 0 and ve.znacbal[j][k - 1] < ve.znacbal[j][k]) {
+					int b;
+					string n;
+					b = ve.znacbal[j][k - 1];
+					ve.znacbal[j][k - 1] = ve.znacbal[j][k];
+					ve.znacbal[j][k] = b;
+					n = value.grn[j][k - 1];
+					value.grn[j][k - 1] = value.grn[j][k];
+					value.grn[j][k] = n;
+					k = k - 1;
+				}
+			}
+		}
+	}
+	~GroupMatch() {
+		cout << "вызван деструктор " << calendar << endl;
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор " << calendar[i] << endl;
+			delete[] calendar[i];
+		}
+		
+		delete[] calendar;
+		delete[] namematch;
+	}
+	string FirstTeam() {
+		int dl = namematch[ma].size();
+		string tem1 = "";
+		for (int i = 0; i < dl; i++) {
+			if (namematch[ma][i] != '-')
+				tem1 = tem1 + namematch[ma][i];
+			else
+				break;
+		}
+		return tem1;
+	}
+	string SecondTeam(int value) {
+		int dl = namematch[ma].size();
+		string tem2 = "";
+		for (int i = value; i < dl; i++) {
+			if (namematch[ma][i] != '-')
+				tem2 = tem2 + namematch[ma][i];
+			else
+				break;
+		}
+		return tem2;
+	}
+};
+
+;
+int main() {
+	setlocale(LC_ALL, "RU");
+	Comand Club;
+	GroupName GrN(Club);
+	GroupXaracter GrC;
+	GroupMatch GrM(GrN);
+	GrM.PlayMatch(GrN, GrC);
+	GrM.PrintItog(GrN, GrC);
+	GrM.PlayMatch(GrN, GrC);
+	GrM.PrintItog(GrN, GrC);
+	GrM.PlayMatch(GrN, GrC);
+	GrM.PrintItog(GrN, GrC);
+	return 0;
+}
