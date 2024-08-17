@@ -1,0 +1,585 @@
+#include <iostream>;
+#include < string>;
+using namespace std;
+
+class GroupName;
+class GroupXaracter;
+class GroupMatch;
+class Comand {
+private:
+	string* teams;
+public:
+
+	Comand(){
+		teams = new string[8];
+		teams[0] = "Barcelona";
+		teams[1] = "Manchester City";
+		teams[2] = "Inter Milan";
+		teams[3] = "PSG";
+		teams[4] = "Real Madrid";
+		teams[5] = "Chelsea";
+		teams[6] = "Juventus";
+		teams[7] = "Bayern Munich";
+	}
+	~Comand() {
+		cout << "вызван деструктор " << teams << endl;
+		delete[] this->teams;
+	}
+	friend GroupName;
+	friend GroupXaracter;
+	friend GroupMatch;
+};
+class Comand;
+class GroupXaracter;
+class GroupName {
+private:
+	string** grn;
+public:
+	GroupName(Comand& value) {
+		grn = new string * [2];
+		int start = 0;
+		for (int i = 0; i < 2; i++) {
+			grn[i] = new string[4];
+		}
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 4; j++) {
+				grn[i][j] = value.teams[start];
+				start++;
+			}
+		}
+	}
+	~GroupName() {
+		cout << "вызван деструктор " << grn << endl;
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор " << grn[i] << endl;
+			delete[] grn[i];
+		}
+		delete[] grn;
+	}
+	friend Comand;
+	friend GroupXaracter;
+	friend GroupMatch;
+
+};
+class GroupXaracter {
+private:
+	int** znacbal;
+	int** znacsecond;
+	int** golplus;
+	int** golminus;
+public:
+
+	GroupXaracter() {
+		znacbal = new int* [2];
+		for (int i = 0; i < 2; i++) {
+			znacbal[i] = new int[4];
+		}
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 4; j++) {
+				znacbal[i][j] = 0;
+			}
+		}
+		golplus = new int* [2];
+		for (int i = 0; i < 2; i++) {
+			golplus[i] = new int[4];
+		}
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 4; j++) {
+				golplus[i][j] = 0;
+			}
+		}
+		golminus = new int* [2];
+		for (int i = 0; i < 2; i++) {
+			golminus[i] = new int[4];
+		}
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 4; j++) {
+				golminus[i][j] = 0;
+			}
+		}
+		znacsecond = new int* [2];
+		for (int i = 0; i < 2; i++) {
+			znacsecond[i] = new int[4];
+		}
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 4; j++) {
+				znacsecond[i][j] = 0;
+			}
+		}
+	}
+	void TableSort();
+	~GroupXaracter() {
+		cout << "вызван деструктор " << znacbal << endl;
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор " << znacbal[i] << endl;
+			delete[] znacbal[i];
+		}
+		delete[] znacbal;
+		cout << "вызван деструктор " << golplus << endl;
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор " << golplus[i] << endl;
+			delete[] golplus[i];
+		}
+		delete[] golplus;
+		cout << "вызван деструктор " << golminus << endl;
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор " << golminus[i] << endl;
+			delete[] golminus[i];
+		}
+		delete[] golminus;
+		cout << "вызван деструктор " << znacsecond << endl;
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор " << znacsecond[i] << endl;
+			delete[] znacsecond[i];
+		}
+		delete[] znacsecond;
+	}
+	friend GroupMatch;
+};
+class GroupMatch {
+private:
+	string** calendar;
+	string* namematch;
+	string te1;
+	string te2;
+	int ma = 0;
+	int kom1si;
+	int kom2si;
+	int index1G;
+	int index2G;
+	int index1S;
+	int index2S;
+	int tour = 1;
+	int k = 0;
+	int flag = 0;
+	int kom2sis;
+	int kom1sis;
+	int final1i = 0;
+	int final2i = 0;
+	int final1j = 0;
+	int final2j = 0;
+public:
+
+	GroupMatch(GroupName& vyv) {
+		calendar = new string * [3];
+		for (int i = 0; i < 2; i++) {
+			calendar[i] = new string[12];
+		}
+		calendar[2] = new string[5];
+		CalendarS(vyv);
+		CalendarPrisv(vyv);
+	}
+	void CalendarS(GroupName& v) {
+		calendar[0][0] = v.grn[0][0] + "---" + v.grn[0][2];
+		calendar[0][1] = v.grn[0][1] + "---" + v.grn[0][3];
+		calendar[0][2] = v.grn[0][3] + "---" + v.grn[0][0];
+		calendar[0][3] = v.grn[0][2] + "---" + v.grn[0][1];
+		calendar[0][4] = v.grn[0][0] + "---" + v.grn[0][1];
+		calendar[0][5] = v.grn[0][3] +  "---" + v.grn[0][2];
+		calendar[0][6] = v.grn[0][1] + "---" + v.grn[0][0];
+		calendar[0][7] = v.grn[0][2] + "---" + v.grn[0][3];
+		calendar[0][8] = v.grn[0][0] + "---" + v.grn[0][3];
+		calendar[0][9] = v.grn[0][1] + "---" + v.grn[0][2];
+		calendar[0][10] = v.grn[0][2] + "---" + v.grn[0][0];
+		calendar[0][11] = v.grn[0][3] + "---" + v.grn[0][1];
+
+		calendar[1][0] = v.grn[1][0] + "---" + v.grn[1][2];
+		calendar[1][1] = v.grn[1][1] + "---" + v.grn[1][3];
+		calendar[1][2] = v.grn[1][3] + "---" + v.grn[1][0];
+		calendar[1][3] = v.grn[1][2] + "---" + v.grn[1][1];
+		calendar[1][4] = v.grn[1][0] + "---" + v.grn[1][1];
+		calendar[1][5] = v.grn[1][3] + "---" + v.grn[1][2];
+		calendar[1][6] = v.grn[1][1] + "---" + v.grn[1][0];
+		calendar[1][7] = v.grn[1][2] + "---" + v.grn[1][3];
+		calendar[1][8] = v.grn[1][0] + "---" + v.grn[1][3];
+		calendar[1][9] = v.grn[1][1] + "---" + v.grn[1][2];
+		calendar[1][10] = v.grn[1][2] + "---" + v.grn[1][0];
+		calendar[1][11] = v.grn[1][3] + "---" + v.grn[1][1];
+
+		calendar[2][0] = v.grn[1][1] + "---" + v.grn[0][0];
+		calendar[2][1] = v.grn[0][1] + "---" + v.grn[1][0];
+		calendar[2][2] = v.grn[0][0] + "---" + v.grn[1][1];
+		calendar[2][3] = v.grn[1][0] + "---" + v.grn[0][1];
+		calendar[2][4] = "";
+	}
+
+	void CalendarV(GroupName& v) {
+		int start1 = 0;
+		int start2 = 1;
+		int tour = 1;
+		for (int i = 0; i < 6; i++) {
+			cout << tour << " Тур --- " << endl;
+			cout << calendar[0][start1] << endl;
+			cout << calendar[0][start2] << endl;
+			cout << calendar[1][start1] << endl;
+			cout << calendar[1][start2] << endl;
+			tour++;
+			start1 = start1 + 2;
+			start2 = start2 + 2;
+		}
+
+	}
+	void CalendarPrisv(GroupName& v) {
+		namematch = new string[29];
+		int start1 = 0;
+		int start2 = 1;
+		int j = 0;
+		for (int i = 0; i < 6; i++) {
+			namematch[j] = calendar[0][start1];
+			j++;
+			namematch[j] = calendar[0][start2];
+			j++;
+			namematch[j] = calendar[1][start1];
+			j++;
+			namematch[j] = calendar[1][start2];
+			j++;
+			start1 = start1 + 2;
+			start2 = start2 + 2;
+		}
+	}
+	void PrintItog(GroupName& value, GroupXaracter& ve) {
+		for (int i = 0; i < 2; i++) {
+			cout << i + 1 << " Группа            G+  -  G-" << endl;
+			for (int j = 0; j < 4; j++) {
+				cout << j + 1 << ". " << value.grn[i][j] << " = " << ve.znacbal[i][j] <<"    ("  << ve.golplus[i][j] << " - " << ve.golminus[i][j] << ") " << endl;
+			}
+			cout << "------" << endl;
+		}
+	}
+	void PlayMatch(GroupName& value, GroupXaracter& ve) {
+		if (ma < 24) {
+			cout << tour << " Тур ---" << endl;
+			cout << ma + 1 << " матч --- " << endl;
+			cout << namematch[ma] << endl;
+			this->te1 = FirstTeam();
+			int dle = te1.size();
+			this->te2 = SecondTeam(dle + 3);
+			for (int i = 0; i < 2; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (te1 == value.grn[i][j]) {
+						index1G = i;
+						index1S = j;
+					}
+				}
+			}
+			for (int i = 0; i < 2; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (te2 == value.grn[i][j]) {
+						this->index2G = i;
+						this->index2S = j;
+					}
+				}
+			}
+			cout << "Введите итоговый счет встречи(в формате 'количество голов команды 1-количество голов команды 2') === ";
+			char scet[4];
+			cin >> scet;
+			char kom1sc = scet[0];
+			char kom2sc = scet[2];
+			kom1si = int(scet[0]) - 48;
+			kom2si = int(scet[2]) - 48;
+			if (kom1si > kom2si) {
+				ve.znacbal[index1G][index1S] = ve.znacbal[index1G][index1S] + 3;
+			}
+			else if (kom1si < kom2si) {
+				ve.znacbal[index2G][index2S] = ve.znacbal[index2G][index2S] + 3;
+			}
+			else if (kom1si == kom2si) {
+				ve.znacbal[index1G][index1S] = ve.znacbal[index1G][index1S] + 1;
+				ve.znacbal[index2G][index2S] = ve.znacbal[index2G][index2S] + 1;
+			}
+			ve.golplus[index1G][index1S] = ve.golplus[index1G][index1S] + kom1si;
+			ve.golminus[index1G][index1S] = ve.golminus[index1G][index1S] + kom2si;
+			ve.golplus[index2G][index2S] = ve.golplus[index2G][index2S] + kom2si;
+			ve.golminus[index2G][index2S] = ve.golminus[index2G][index2S] + kom1si;
+			SortTable(value, ve);
+			k++;
+			if (k == 4) {
+				k = 0;
+				cout << endl;
+				cout << "Итоговая таблица после " << tour << " тура --- " << endl;
+				PrintItog(value, ve);
+				tour++;
+			}
+			ma++;
+		}
+		if (ma == 24) {
+			calendar[2][0] = value.grn[1][1] + "---" + value.grn[0][0];
+			calendar[2][1] = value.grn[0][0] + "---" + value.grn[1][1];
+			calendar[2][2] = value.grn[0][1] + "---" + value.grn[1][0];
+			calendar[2][3] = value.grn[1][0] + "---" + value.grn[0][1];
+			calendar[2][4] = "";
+			namematch[24] = calendar[2][0];
+			namematch[25] = calendar[2][1];
+			namematch[26] = calendar[2][2];
+			namematch[27] = calendar[2][3];
+			namematch[28] = calendar[2][4];
+		}
+		if (ma >= 24 and ma < 28) {
+			this -> final2i = final1i;
+			this -> final2j = final1j;
+			cout << "1/2 финала" << endl;
+			cout << "-------------------" << endl;
+			cout << namematch[ma] << endl;
+			this->te1 = FirstTeam();
+			int dlinx = te1.size();
+			this->te2 = SecondTeam(dlinx + 3);
+			for (int i = 0; i < 2; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (te1 == value.grn[i][j]) {
+						index1G = i;
+						index1S = j;
+					}
+				}
+			}
+			for (int i = 0; i < 2; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (te2 == value.grn[i][j]) {
+						this->index2G = i;
+						this->index2S = j;
+					}
+				}
+			}
+			cout << "Введите итоговый счет встречи (в формате 'количество голов команды 1-количество голов команды 2') === ";
+			char scetik[4];
+			cin >> scetik;
+			char kom1scs = scetik[0];
+			char kom2scs = scetik[2];
+			this->kom1si = int(scetik[0]) - 48;
+			this->kom2si = int(scetik[2]) - 48;
+			ve.znacsecond[index1G][index1S] = ve.znacsecond[index1G][index1S] + kom1si;
+			ve.znacsecond[index2G][index2S] = ve.znacsecond[index2G][index2S] + kom2si;
+			this->flag = 1;
+			ma++;
+			if (flag == 1) {
+				cout << "--------" << endl;
+				cout << "Ответная встреча " << namematch[ma] << endl;
+				cout << "Счет после первого матча === " << ve.znacsecond[index2G][index2S] << "-" << ve.znacsecond[index1G][index1S] << endl;
+
+				cout << "Введите итоговый счет встречи (в формате 'количество голов команды 1-количество голов команды 2') ===";
+				char scet2[4];
+				cin >> scet2;
+				this->kom2si = int(scet2[0]) - 48;
+				this->kom1si = int(scet2[2]) - 48;
+				ve.znacsecond[index2G][index2S] = ve.znacsecond[index2G][index2S] + kom2si;
+				ve.znacsecond[index1G][index1S] = ve.znacsecond[index1G][index1S] + kom1si;
+				int itog2 = ve.znacsecond[index2G][index2S];
+				int itog1 = ve.znacsecond[index1G][index1S];
+				cout << "Результат двух встреч матча " << namematch[ma] << " === "  << itog2 << "-" << itog1 << endl;
+				bool peni = true;
+				if (itog2 > itog1) {
+					cout << this->te2 << " выходит в финал кубка !" << endl;
+					this->final1i = index2G;
+					this->final1j = index2S;
+				}
+				else if (itog2 < itog1) {
+					cout << this->te1 << " выходит в финал кубка !" << endl;
+					this->final1i = index1G;
+					this->final1j = index1S;
+				}
+				else if (itog2 == itog1) {
+					cout << "Введите счет послематчевой серии пенальти (в формате 'количество голов команды 1-количество голов команды 2') === ";
+					char scetz[4];
+					cin >> scetz;
+					int penalti2 = int(scetz[0]) - 48;
+					int penalti1 = int(scetz[2]) - 48;
+					if (penalti2 > penalti1) {
+						cout << this->te2 << " выходит в финал кубка !" << endl;
+						this->final1i = index2G;
+						this->final1j = index2S;
+					}
+					else if (penalti2 < penalti1) {
+						cout << this->te1 << "выходит в финал кубка !" << endl;
+						this->final1i = index1G;
+						this->final1j = index1S;
+					}
+					else {
+						while (peni) {
+							cout << "Результат послематчевых пенальти не может быть ничейным - повторите ввод === ";
+							char scetez[4];
+							cin >> scetez;
+							int penaltix2 = int(scetez[0]) - 48;
+							int penaltix1 = int(scetez[2]) - 48;
+							if (penaltix2 > penaltix1) {
+								cout << this->te2 << " выходит в финал кубка !" << endl;
+								this->final1i = index2G;
+								this->final1j = index2S;
+								peni = false;
+							}
+							else if (penaltix2 < penaltix1) {
+								cout << this->te1 << " выходит в финал кубка !" << endl;
+								this->final1i = index1G;
+								this->final1j = index1S;
+								peni = false;
+							}
+						}
+					}
+				}
+				ma++;
+				this->flag = 0;
+			}
+			if (ma == 28) {
+				calendar[2][4] = value.grn[final1i][final1j] + "---" + value.grn[final2i][final2j];
+				namematch[28] = calendar[2][4];
+				cout << endl;
+				cout << "Финал - " << namematch[28] << endl;
+				cout << "Введите итоговый счет встречи (в формате 'количество голов команды 1-количество голов команды 2') === ";
+				char sm[4];
+				cin >> sm;
+				int final1s = int(sm[0]) - 48;
+				int final2s = int(sm[2]) - 48;
+				bool b = true;
+				if (final1s > final2s) {
+					cout << value.grn[final1i][final1j] << " выиграл кубок !" << endl;
+				}
+				else if (final1s < final2s) {
+					cout << value.grn[final2i][final2j] << " выиграл кубок !" << endl;
+				}
+				else if (final1s == final2s) {
+					cout << "Введите счет послематчевой серии пенальти (в формате 'количество голов команды 1-количество голов команды 2') === ";
+					char scetze[4];
+					cin >> scetze;
+					int penaltif1 = int(scetze[0]) - 48;
+					int penaltif2 = int(scetze[2]) - 48;
+					if (penaltif1 > penaltif2) {
+						cout << value.grn[final1i][final1j] << " выиграл кубок !" << endl;
+					}
+					else if (penaltif1 < penaltif2) {
+						cout << value.grn[final2i][final2j] << " выиграл кубок !" << endl;
+					}
+					else {
+						while (b) {
+							cout << "Результат послематчевых пенальти не может быть ничейным - повторите ввод === ";
+							char scetze[4];
+							cin >> scetze;
+							int penaltif1 = int(scetze[0]) - 48;
+							int penaltif2 = int(scetze[2]) - 48;
+							if (penaltif1 > penaltif2) {
+								cout << value.grn[final1i][final1j] << " выиграл кубок !" << endl;
+								b = false;
+							}
+							else if (penaltif1 < penaltif2) {
+								cout << value.grn[final2i][final2j] << " выиграл кубок !" << endl;
+								b = false;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	void SortTable(GroupName& value, GroupXaracter& ve) {
+		for (int j = 0; j < 2; j++) {
+			for (int i = 1; i < 4; i++) {
+				int k = i;
+				while (k > 0 and ve.znacbal[j][k - 1] < ve.znacbal[j][k]) {
+					int b;
+					string n;
+					int golp;
+					int golm;
+					b = ve.znacbal[j][k - 1];
+					ve.znacbal[j][k - 1] = ve.znacbal[j][k];
+					ve.znacbal[j][k] = b;
+					n = value.grn[j][k - 1];
+					value.grn[j][k - 1] = value.grn[j][k];
+					value.grn[j][k] = n;
+					golp = ve.golplus[j][k - 1];
+					ve.golplus[j][k - 1] = ve.golplus[j][k];
+					ve.golplus[j][k] = golp;
+					golm = ve.golminus[j][k - 1];
+					ve.golminus[j][k - 1] = ve.golminus[j][k];
+					ve.golminus[j][k] = golm;
+					k = k - 1;
+				}
+				if (k > 0 and ve.znacbal[j][k - 1] == ve.znacbal[j][k]) {
+					int sr1 = ve.golplus[j][k - 1] - ve.golminus[j][k- 1];
+					int sr2 = ve.golplus[j][k] - ve.golminus[j][k];
+					if (sr1 < sr2) {
+						int b;
+						string n;
+						int golp;
+						int golm;
+						b = ve.znacbal[j][k - 1];
+						ve.znacbal[j][k - 1] = ve.znacbal[j][k];
+						ve.znacbal[j][k] = b;
+						n = value.grn[j][k - 1];
+						value.grn[j][k - 1] = value.grn[j][k];
+						value.grn[j][k] = n;
+						golp = ve.golplus[j][k - 1];
+						ve.golplus[j][k - 1] = ve.golplus[j][k];
+						ve.golplus[j][k] = golp;
+						golm = ve.golminus[j][k - 1];
+						ve.golminus[j][k - 1] = ve.golminus[j][k];
+						ve.golminus[j][k] = golm;
+						k = k - 1;
+					}
+					else if (sr1 == sr2) {
+						if (ve.golplus[j][k - 1] < ve.golplus[j][k]) {
+							int b;
+							string n;
+							int golp;
+							int golm;
+							b = ve.znacbal[j][k - 1];
+							ve.znacbal[j][k - 1] = ve.znacbal[j][k];
+							ve.znacbal[j][k] = b;
+							n = value.grn[j][k - 1];
+							value.grn[j][k - 1] = value.grn[j][k];
+							value.grn[j][k] = n;
+							golp = ve.golplus[j][k - 1];
+							ve.golplus[j][k - 1] = ve.golplus[j][k];
+							ve.golplus[j][k] = golp;
+							golm = ve.golminus[j][k - 1];
+							ve.golminus[j][k - 1] = ve.golminus[j][k];
+							ve.golminus[j][k] = golm;
+							k = k - 1;
+						}
+					}
+				}
+			}
+		}
+	}
+	~GroupMatch() {
+		cout << "вызван деструктор " << calendar << endl;
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор " << calendar[i] << endl;
+			delete[] calendar[i];
+		}
+		
+		delete[] calendar;
+		delete[] namematch;
+	}
+	string FirstTeam() {
+		int dl = namematch[ma].size();
+		string tem1 = "";
+		for (int i = 0; i < dl; i++) {
+			if (namematch[ma][i] != '-')
+				tem1 = tem1 + namematch[ma][i];
+			else
+				break;
+		}
+		return tem1;
+	}
+	string SecondTeam(int value) {
+		int dl = namematch[ma].size();
+		string tem2 = "";
+		for (int i = value; i < dl; i++) {
+			if (namematch[ma][i] != '-')
+				tem2 = tem2 + namematch[ma][i];
+			else
+				break;
+		}
+		return tem2;
+	}
+};
+
+;
+int main() {
+	setlocale(LC_ALL, "RU");
+	Comand Club;
+	GroupName GrN(Club);
+	GroupXaracter GrC;
+	GroupMatch GrM(GrN);
+	for (int i = 0; i < 27; i++) {
+		GrM.PlayMatch(GrN, GrC);
+	}
+	return 0;
+}
