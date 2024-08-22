@@ -1,0 +1,2130 @@
+#include <iostream>;
+#include <string>;
+#include <vector>;
+
+using namespace std;
+class Comand;
+class Spain;
+class GroupName;
+class ComandBaseName {
+private:
+	int index1 = 0;
+	int index2 = 0;
+	int index3 = 0;
+	int index4 = 0;
+	string** teamsname;
+public:
+
+	ComandBaseName() {
+		teamsname = new string * [4];
+		for (int i = 0; i < 4; i++) {
+			teamsname[i] = new string[8];
+		}
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				teamsname[i][j] = "0";
+			}
+		}
+	}
+	~ComandBaseName() {
+		cout << "вызван деструктор ComandBaseName " << teamsname << endl;
+		for (int i = 0; i < 4; i++) {
+			cout << "вызван деструктор" << teamsname[i] << endl;
+			delete[] teamsname[i];
+		}
+		delete[] teamsname;
+	}
+	void GetKolvoMest() {
+		int mest1 = 8;
+		int mest2 = 8;
+		int mest3 = 8;
+		int mest4 = 8;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (i == 0) {
+					if (teamsname[i][j] != "0") {
+						mest1 = mest1 - 1;
+					}
+				}
+				if (i == 1) {
+					if (teamsname[i][j] != "0") {
+						mest2 = mest2 - 1;
+					}
+				}
+				if (i == 2) {
+					if (teamsname[i][j] != "0") {
+						mest3= mest3 - 1;
+					}
+				}
+				if (i == 3) {
+					if (teamsname[i][j] != "0") {
+						mest4 = mest4 - 1;
+					}
+				}
+			}
+		}
+		cout << "Количество свободных команд в 1 корзине === " << mest1 << endl;
+		cout << "Количество свободных команд в 2 корзине === " << mest2 << endl;
+		cout << "Количество свободных команд в 3 корзине === " << mest3<< endl;
+		cout << "Количество свободных команд в 4 корзине === " << mest4 << endl;
+	}
+	int GetMestOne() {
+		int mes = 8;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (i == 0) {
+					if (teamsname[i][j] != "0") {
+						mes = mes - 1;
+					}
+				}
+			}
+		}
+		return mes;
+	}
+	int GetMestTwo() {
+		int mes = 8;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (i == 1) {
+					if (teamsname[i][j] != "0") {
+						mes = mes - 1;
+					}
+				}
+			}
+		}
+		return mes;
+	};
+	int GetMestThree() {
+		int mes = 8;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (i == 2) {
+					if (teamsname[i][j] != "0") {
+						mes = mes - 1;
+					}
+				}
+			}
+		}
+		return mes;
+	}
+	int GetMestFour() {
+		int mes = 8;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (i == 3) {
+					if (teamsname[i][j] != "0") {
+						mes = mes - 1;
+					}
+				}
+			}
+		}
+		return mes;
+	}
+	friend Spain;
+	friend Comand;
+	friend GroupName;
+	void PrintKorz() {
+		for (int i = 0; i < 4; i++) {
+			cout << endl;
+			cout << i + 1 << " корзина" << endl;
+			cout << "------------" << endl;
+			for (int j = 0; j < 8; j++) {
+				cout << j+1 << ". " <<teamsname[i][j] << endl;
+			}
+		}
+	}
+};
+class GroupName {
+private:
+	int track = 1;
+	int ind1i;
+	int ind2i;
+	int ind1j;
+	int ind2j;
+	string tem1;
+	string tem2;
+	int matchday = 0;
+	int tur = 0;
+	int grday = 1;
+	string* namematch;
+	string** calendar;
+	int** groupbal;
+	int** groupplus;
+	int** groupminus;
+	int flage = 0;
+	int flage2 = 0;
+	string** groupname;
+	vector <int> table1;
+	vector <string> table2;
+	vector <int> table3;
+	vector <string> table4;
+	vector <int> table5;
+	vector <string> table6;
+	vector <int> table7;
+	int scetm = 0;
+	int k = 0;
+	string** playoff1;
+	vector <string> play2;
+	vector <string> play4;
+	string** plyoffm;
+	string* matchplayoff1;
+	vector <int> play3;
+	int** playoffgoals;
+	string* namecetvr;
+	string** matchcetvr;
+	int* balcetvr;
+	string* finalpolu;
+	vector <string> matches;
+	int* scetpolu;
+	string *finales;
+public:
+	GroupName() {
+		groupname = new string * [8];
+		for (int i = 0; i < 8; i++) {
+			groupname[i] = new string[4];
+		}
+		groupbal = new int* [8];
+		for (int i = 0; i < 8; i++) {
+			groupbal[i] = new int[4];
+		}
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 4; j++) {
+				groupbal[i][j] = 0;
+			}
+		}
+		groupplus = new int* [8];
+		for (int i = 0; i < 8; i++) {
+			groupplus[i] = new int[4];
+		}
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 4; j++) {
+				groupplus[i][j] = 0;
+			}
+		}
+		groupminus = new int* [8];
+		for (int i = 0; i < 8; i++) {
+			groupminus[i] = new int[4];
+		}
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 4; j++) {
+				groupminus[i][j] = 0;
+			}
+		}
+		calendar = new string * [8];
+		for (int i = 0; i < 8; i++) {
+			calendar[i] = new string[12];
+		}
+		namematch = new string[96];
+		playoff1 = new string * [2];
+		for (int i = 0; i < 2; i++) {
+			playoff1[i] = new string[8];
+		}
+		plyoffm = new string * [2];
+		for (int i = 0; i < 2; i++) {
+			plyoffm[i] = new string[8];
+		}
+		matchplayoff1 = new string[16];
+		playoffgoals = new int* [8];
+		for (int i = 0; i < 8; i++) {
+			playoffgoals[i] = new int[4];
+		}
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 4; j++) {
+				playoffgoals[i][j] = 0;
+			}
+		}
+		namecetvr = new string[8];
+		matchcetvr = new string * [2];
+		for (int i = 0; i < 2; i++) {
+			matchcetvr[i] = new string[4];
+		}
+		balcetvr = new int[8];
+		for (int i = 0; i < 8; i++) {
+			balcetvr[i] = 0;
+		}
+		finalpolu = new string[4];
+		scetpolu = new int[4];
+		for (int i = 0; i < 4; i++) {
+			scetpolu[i] = 0;
+		}
+		finales = new string[2];
+	}
+
+	void SozdatGroup(ComandBaseName& nam) {
+		srand(time(NULL));
+		cout << "Вы желаете пропустить жеребьевку и распределение по группам? " << endl;
+		cout << "YES - да; NO - нет " << endl;
+		string naida;
+		bool ed = true;
+		while (ed) {
+			cin >> naida;
+			if (naida == "YES")
+				ed = false;
+			else if (naida == "NO")
+				ed = false;
+			else
+				cout << "Введен неверный символ! Повторите ввод === " << endl;
+		}
+		cout << "Начало жеребьевки ---- " << endl;
+		cout << "1 корзина --- " << endl;
+		for (int j = 0; j < 8; j++) {
+			cout << "------------" << endl;
+			if (naida == "NO") {
+				cout << "Подвердите выбор " << j + 1 << " команды " << nam.teamsname[0][j] << " (введите любой символ с клавиатуры) === " << endl;
+				string me;
+				cin >> me;
+			}
+			bool vyb = true;
+			while (vyb) {
+				int flag = 0;
+				int m = 1 + rand() % (8);
+				for (int i = 0; i < table1.size(); i++) {
+					if (table1[i] == m) {
+						flag = 1;
+					}
+				}
+				if (flag == 0) {
+					groupname[m - 1][0] = nam.teamsname[0][j];
+					cout << nam.teamsname[0][j] << " добавлена в группу " << m << endl;
+					cout << m << " Группа --- " << endl;
+					for (int i = 0; i < 4; i++) {
+						cout << i + 1 << ". " << groupname[m - 1][i] << endl;
+					}
+					table1.push_back(m);
+					vyb = false;
+				}
+			}
+		}
+		cout << "Группы после добавления 1 корзины " << endl;
+		PokazGroupJrebiy();
+		cout << endl << endl;
+		cout << "----------------" << endl;
+		cout << "2 корзина --- " << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << "-----------" << endl;
+			if (naida == "NO") {
+				cout << "Подвердите выбор " << i + 1 << " команды (введите любой символ с клавиатуры) === " << endl;
+				string mec;
+				cin >> mec;
+			}
+			bool vybteam = true;
+			bool vybgroup = true;
+			string one;
+			int ind;
+			while (vybteam) {
+				int fla = 0;
+				int me = 1 + rand() % 8;
+				for (int i = 0; i < table2.size(); i++) {
+					if (table2[i] == nam.teamsname[1][me - 1])
+						fla = 1;
+				}
+				if (fla == 0) {
+					cout << "Выбрана команда " << nam.teamsname[1][me - 1] << endl;
+					table2.push_back(nam.teamsname[1][me - 1]);
+					one = nam.teamsname[1][me - 1];
+					ind = me - 1;
+					vybteam = false;
+				}
+			}
+			if (naida == "NO") {
+				cout << "Подвердите выбор группы для " << one << " (введите любой символ с клавиатуры) === " << endl;
+				string zet;
+				cin >> zet;
+			}
+			while (vybgroup) {
+				int fl = 0;
+				int mx = 1 + rand() % 8;
+				for (int i = 0; i < table3.size(); i++) {
+					if (table3[i] == mx) {
+						fl = 1;
+					}
+				}
+				if (fl == 0) {
+					string on = GetCountry(one);
+					string two = GetCountry(groupname[mx - 1][0]);
+					if (on != two) {
+						cout << one << " добавлена в группу " << mx << endl;
+						groupname[mx - 1][1] = one;
+						cout << mx << " Группа --- " << endl;
+						for (int i = 0; i < 4; i++) {
+							cout << i + 1 << ". " << groupname[mx - 1][i] << endl;
+						}
+						table3.push_back(mx);
+						vybgroup = false;
+					}
+					else if (on == two) {
+						fl = 1;
+					}
+				}
+			}
+
+		}
+		
+		cout << "----------------" << endl;
+		cout << "Группы после добавления 2 корзины " << endl;
+		PokazGroupJrebiy();
+		cout << endl;
+		cout << "----------------" << endl;
+		cout << "3 корзина --- " << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << "-----------" << endl;
+			if (naida == "NO") {
+				cout << "Подвердите выбор " << i + 1 << " команды (введите любой символ с клавиатуры) === " << endl;
+				string mec;
+				cin >> mec;
+			}
+			bool vybteam = true;
+			bool vybgroup = true;
+			string one;
+			int ind;
+			while (vybteam) {
+				int fla = 0;
+				int me = 1 + rand() % 8;
+				for (int i = 0; i < table4.size(); i++) {
+					if (table4[i] == nam.teamsname[2][me - 1])
+						fla = 1;
+				}
+				if (fla == 0) {
+					cout << "Выбрана команда " << nam.teamsname[2][me - 1] << endl;
+					table4.push_back(nam.teamsname[2][me - 1]);
+					one = nam.teamsname[2][me - 1];
+					ind = me - 1;
+					vybteam = false;
+				}
+			}
+			if (naida == "NO") {
+				cout << "Подвердите выбор группы для " << one << " (введите любой символ с клавиатуры) === " << endl;
+				string zet;
+				cin >> zet;
+			}
+			while (vybgroup) {
+				int fl = 0;
+				int mx = 1 + rand() % 8;
+				for (int i = 0; i < table5.size(); i++) {
+					if (table5[i] == mx) {
+						fl = 1;
+					}
+				}
+				if (fl == 0) {
+					string on = GetCountry(one);
+					string two = GetCountry(groupname[mx - 1][0]);
+					string three = GetCountry(groupname[mx - 1][1]);
+					if (on != two and on != three) {
+						cout << one << " добавлена в группу " << mx << endl;
+						groupname[mx - 1][2] = one;
+						cout << mx << " Группа --- " << endl;
+						for (int i = 0; i < 4; i++) {
+							cout << i + 1 << ". " << groupname[mx - 1][i] << endl;
+						}
+						table5.push_back(mx);
+						vybgroup = false;
+					}
+
+				}
+			}
+
+		}
+		
+		cout << "----------------" << endl;
+		cout << "Группы после добавления 3 корзины " << endl;
+		PokazGroupJrebiy();
+		cout << endl;
+		cout << "----------------" << endl;
+		cout << "4 корзина --- " << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << "-----------" << endl;
+			if (naida == "NO") {
+				cout << "Подвердите выбор " << i + 1 << " команды (введите любой символ с клавиатуры) === " << endl;
+				string mec;
+				cin >> mec;
+			}
+			bool vybteam = true;
+			bool vybgroup = true;
+			string one;
+			int ind;
+			while (vybteam) {
+				int fla = 0;
+				int me = 1 + rand() % 8;
+				for (int i = 0; i < table6.size(); i++) {
+					if (table6[i] == nam.teamsname[3][me - 1])
+						fla = 1;
+				}
+				if (fla == 0) {
+					cout << "Выбрана команда " << nam.teamsname[3][me - 1] << endl;
+					table6.push_back(nam.teamsname[3][me - 1]);
+					one = nam.teamsname[3][me - 1];
+					ind = me - 1;
+					vybteam = false;
+				}
+			}
+			if (naida == "NO") {
+				cout << "Подвердите выбор группы для " << one << " (введите любой символ с клавиатуры) === " << endl;
+				string zet;
+				cin >> zet;
+			}
+			while (vybgroup) {
+				int fl = 0;
+				int mx = 1 + rand() % 8;
+				for (int i = 0; i < table7.size(); i++) {
+					if (table7[i] == mx) {
+						fl = 1;
+					}
+				}
+				
+				if (fl == 0) {
+					string on = GetCountry(one);
+					string two = GetCountry(groupname[mx - 1][0]);
+					string three = GetCountry(groupname[mx - 1][1]);
+					string four = GetCountry(groupname[mx - 1][2]);
+					if (four != on and on != three and on != two) {
+						cout << one << " добавлена в группу " << mx << endl;
+						groupname[mx - 1][3] = one;
+						cout << mx << " Группа --- " << endl;
+						for (int i = 0; i < 4; i++) {
+							cout << i + 1 << ". " << groupname[mx - 1][i] << endl;
+						}
+						table7.push_back(mx);
+						vybgroup = false;
+					}
+
+				}
+			}
+
+		}
+	
+		cout << "----------------" << endl;
+		cout << endl;
+		cout << "Итоговые группы после добавления всех команд " << endl;
+		PokazGroupJrebiy();
+		SozdCalendar();
+		SozdMatch();
+		cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+		string me;
+		cin >> me;
+		cout << "------------------" << endl;
+		cout << "Начало группового этапа --- " << endl;
+	}
+	void SozdCalendar() {
+		for (int i = 0; i < 8; i++) {
+			int start = 0;
+			calendar[i][start] = groupname[i][0] + "--- " + groupname[i][2];
+			start++;
+			calendar[i][start] = groupname[i][1] + "--- " + groupname[i][3];
+			start++;
+			calendar[i][start] = groupname[i][3] + "--- " + groupname[i][0];
+			start++;
+			calendar[i][start] = groupname[i][2] + "--- " + groupname[i][1];
+			start++;
+			calendar[i][start] = groupname[i][0] + "--- " + groupname[i][1];
+			start++;
+			calendar[i][start] = groupname[i][3] + "--- " + groupname[i][2];
+			start++;
+			calendar[i][start] = groupname[i][2] + "--- " + groupname[i][3];
+			start++;
+			calendar[i][start] = groupname[i][1] + "--- " + groupname[i][0];
+			start++;
+			calendar[i][start] = groupname[i][1] + "--- " + groupname[i][2];
+			start++;
+			calendar[i][start] = groupname[i][0] + "--- " + groupname[i][3];
+			start++;
+			calendar[i][start] = groupname[i][3] + "--- " + groupname[i][1];
+			start++;
+			calendar[i][start] = groupname[i][2] + "--- " + groupname[i][0];
+
+		}
+	};
+	void SozdMatch() {
+		int start1 = 0;
+		int start2 = 1;
+		int j = 0;
+		for (int i = 0; i < 6; i++) {
+			namematch[j] = calendar[0][start1];
+			j++;
+			namematch[j] = calendar[0][start2];
+			j++;
+			namematch[j] = calendar[1][start1];
+			j++;
+			namematch[j] = calendar[1][start2];
+			j++;
+			namematch[j] = calendar[2][start1];
+			j++;
+			namematch[j] = calendar[2][start2];
+			j++;
+			namematch[j] = calendar[3][start1];
+			j++;
+			namematch[j] = calendar[3][start2];
+			j++;
+			namematch[j] = calendar[4][start1];
+			j++;
+			namematch[j] = calendar[4][start2];
+			j++;
+			namematch[j] = calendar[5][start1];
+			j++;
+			namematch[j] = calendar[5][start2];
+			j++;
+			namematch[j] = calendar[6][start1];
+			j++;
+			namematch[j] = calendar[6][start2];
+			j++;
+			namematch[j] = calendar[7][start1];
+			j++;
+			namematch[j] = calendar[7][start2];
+			j++;
+			start1 = start1 + 2;
+			start2 = start2 + 2;
+		}
+	}
+	void PokazGroupBal() {
+		cout << "---------" << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << i + 1 << " Группа --- " << endl;
+			for (int j = 0; j < 4; j++) {
+				cout << j + 1 << ". " << groupname[i][j] << " = " << groupbal[i][j] << "  (" << groupplus[i][j] << " - " << groupminus[i][j] << ") " << endl;
+			}
+			cout << endl;
+		}
+	}
+	void PokazMatch() {
+		int start1 = 0;
+		for (int i = 0; i < 6; i++) {
+			cout << i + 1 << " Тур --- " << endl;
+			cout << "-----------" << endl;
+			cout << "1 группа ---- " << endl;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << endl;
+			cout << "2 группа ---- " << endl;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << endl;
+			cout << "3 группа ---- " << endl;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << endl;
+			cout << "4 группа ---- " << endl;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << endl;
+			cout << "5 группа ---- " << endl;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << endl;
+			cout << "6 группа ---- " << endl;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << endl;
+			cout << "7 группа ---- " << endl;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << endl;
+			cout << "8 группа ---- " << endl;
+			cout << namematch[start1] << endl;
+			start1++;
+			cout << namematch[start1] << endl;
+			start1++;
+		}
+
+	}
+	string GetCountry(string raz) {
+		int one;
+		string we;
+		for (int i = 0; i < raz.size(); i++) {
+			if (raz[i] == '(')
+				one = i;
+		}
+		for (int j = one + 1; j < raz.size() - 2; j++) {
+			we = we + raz[j];
+		}
+		return we;
+	}
+	void PokazGroupJrebiy() {
+		cout << "---------" << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << i + 1 << " Группа --- " << endl;
+			for (int j = 0; j < 4; j++) {
+				cout << j + 1 << ". " << groupname[i][j] << endl;
+			}
+			cout << endl;
+		}
+	}
+	void PlayMatchGroup() {
+		cout << "Вы желаете пропустить " << track << " игровой тур ? " << endl;
+		cout << "YES - да; NO - нет" << endl;
+		string naida;
+		bool prov = true;
+		while (prov) {
+			cin >> naida;
+			if (naida == "YES")
+				prov = false;
+			else if (naida == "NO")
+				prov = false;
+			else
+				cout << "Введен неверный символ! Повторите ввод === " << endl;
+
+		}
+		srand(time(NULL));
+		if (naida == "NO") {
+			for (int q = 0; q < 16; q++) {
+				this->tem1 = GetTeamone();
+				int dl1 = tem1.size();
+				this->tem2 = GetTeamTwo(dl1 + 4);
+				for (int i = 0; i < 8; i++) {
+					for (int j = 0; j < 4; j++) {
+						if (groupname[i][j] == tem1) {
+							ind1i = i;
+							ind1j = j;
+						}
+					}
+				}
+				for (int i = 0; i < 8; i++) {
+					for (int j = 0; j < 4; j++) {
+						if (groupname[i][j] == tem2) {
+							ind2i = i;
+							ind2j = j;
+						}
+					}
+				}
+				if (flage == 0) {
+					scetm++;
+					if (scetm % 16 == 1)
+						tur++;
+					cout << tur << " Тур --- " << endl;
+					cout << ind1i + 1 << " Группа --- " << endl;
+					cout << namematch[matchday] << endl;
+					cout << "Введите итоговый счет встречи ('количество голов команды 1-количество голов команды 2) === ";
+					char scet[4];
+					cin >> scet;
+					int firstteam = int(scet[0]) - 48;
+					int secteam = int(scet[2]) - 48;
+					if (firstteam > secteam) {
+						groupbal[ind1i][ind1j] = groupbal[ind1i][ind1j] + 3;
+					}
+					else if (firstteam < secteam) {
+						groupbal[ind2i][ind2j] = groupbal[ind2i][ind2j] + 3;
+					}
+					else if (firstteam == secteam) {
+						groupbal[ind1i][ind1j] = groupbal[ind1i][ind1j] + 1;
+						groupbal[ind2i][ind2j] = groupbal[ind2i][ind2j] + 1;
+					}
+					groupplus[ind1i][ind1j] = groupplus[ind1i][ind1j] + firstteam;
+					groupminus[ind1i][ind1j] = groupminus[ind1i][ind1j] + secteam;
+					groupplus[ind2i][ind2j] = groupplus[ind2i][ind2j] + secteam;
+					groupminus[ind2i][ind2j] = groupminus[ind2i][ind2j] + firstteam;
+					SortTable();
+					k++;
+					matchday++;
+					if (k == 16) {
+						cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+						string meST;
+						cin >> meST;
+						cout << endl << "Итоговая таблица после " << tur << " тура --- " << endl;
+						PokazGroupBal();
+						k = 0;
+					}
+				}
+
+			}
+		}
+		if (naida == "YES") {
+			for (int q = 0; q < 16; q++) {
+				this->tem1 = GetTeamone();
+				int dl1 = tem1.size();
+				this->tem2 = GetTeamTwo(dl1 + 4);
+				for (int i = 0; i < 8; i++) {
+					for (int j = 0; j < 4; j++) {
+						if (groupname[i][j] == tem1) {
+							ind1i = i;
+							ind1j = j;
+						}
+					}
+				}
+				for (int i = 0; i < 8; i++) {
+					for (int j = 0; j < 4; j++) {
+						if (groupname[i][j] == tem2) {
+							ind2i = i;
+							ind2j = j;
+						}
+					}
+				}
+				if (flage == 0) {
+					scetm++;
+					if (scetm % 16 == 1)
+						tur++;
+					cout << tur << " Тур --- " << endl;
+					cout << ind1i + 1 << " Группа --- " << endl;
+					int firstteam = 0 + rand() % 8;
+					int secteam = 0 + rand() % 8;
+					cout << namematch[matchday] << firstteam << " - " << secteam << endl;
+
+					if (firstteam > secteam) {
+						groupbal[ind1i][ind1j] = groupbal[ind1i][ind1j] + 3;
+					}
+					else if (firstteam < secteam) {
+						groupbal[ind2i][ind2j] = groupbal[ind2i][ind2j] + 3;
+					}
+					else if (firstteam == secteam) {
+						groupbal[ind1i][ind1j] = groupbal[ind1i][ind1j] + 1;
+						groupbal[ind2i][ind2j] = groupbal[ind2i][ind2j] + 1;
+					}
+					groupplus[ind1i][ind1j] = groupplus[ind1i][ind1j] + firstteam;
+					groupminus[ind1i][ind1j] = groupminus[ind1i][ind1j] + secteam;
+					groupplus[ind2i][ind2j] = groupplus[ind2i][ind2j] + secteam;
+					groupminus[ind2i][ind2j] = groupminus[ind2i][ind2j] + firstteam;
+					SortTable();
+					k++;
+					matchday++;
+					if (k == 16) {
+						cout << endl << "Итоговая таблица после " << tur << " тура --- " << endl;
+						PokazGroupBal();
+						k = 0;
+					}
+				}
+
+			}
+		}
+		track++;
+		if (track == 7) {
+			cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+			string me;
+			cin >> me;
+			PrintItogGroup();
+			DobavPlayoff();
+		}
+	}
+	void PrintItogGroup() {
+		cout << "Команды, которые вышли в 1/8 стадию турнира --- " << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << i + 1 << " группа --- " << endl;
+			cout << "1 место - " << groupname[i][0] << endl;
+			cout << "2 место - " << groupname[i][1] << endl;
+			cout << "--------------" << endl;
+		}
+		cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+		string me;
+		cin >> me;
+	}
+	void SortTable() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 1; j < 4; j++) {
+				int b = j;
+				while (groupbal[i][b - 1] < groupbal[i][b] and b > 0) {
+					swap(groupbal[i][b - 1], groupbal[i][b]);
+					swap(groupname[i][b - 1], groupname[i][b]);
+					swap(groupplus[i][b - 1], groupplus[i][b]);
+					swap(groupminus[i][b - 1], groupminus[i][b]);
+					b--;
+				}
+				if (groupbal[i][b - 1] == groupbal[i][b] and b > 0) {
+					int delta1 = groupplus[i][b - 1] - groupminus[i][b - 1];
+					int delta2 = groupplus[i][b] - groupminus[i][b];
+					if (delta2 > delta1) {
+						swap(groupbal[i][b - 1], groupbal[i][b]);
+						swap(groupname[i][b - 1], groupname[i][b]);
+						swap(groupplus[i][b - 1], groupplus[i][b]);
+						swap(groupminus[i][b - 1], groupminus[i][b]);
+					}
+					else if (delta2 == delta1) {
+						if (groupplus[i][b - 1] < groupplus[i][b]) {
+							swap(groupbal[i][b - 1], groupbal[i][b]);
+							swap(groupname[i][b - 1], groupname[i][b]);
+							swap(groupplus[i][b - 1], groupplus[i][b]);
+							swap(groupminus[i][b - 1], groupminus[i][b]);
+						}
+					}
+				}
+			}
+		}
+	}
+	void DobavPlayoff() {
+		for (int j = 0; j < 8; j++) {
+			playoff1[0][j] = groupname[j][0];
+		}
+		for (int j = 0; j < 8; j++) {
+			playoff1[1][j] = groupname[j][1];
+		}
+	}
+	void SozdatPlayoff() {
+		srand(time(NULL));
+		cout << "Вы желаете пропустить жеребьевку и распределение команд? " << endl;
+		cout << "YES - да; NO - нет " << endl;
+		string naida;
+		bool ed = true;
+		while (ed) {
+			cin >> naida;
+			if (naida == "YES")
+				ed = false;
+			else if (naida == "NO")
+				ed = false;
+			else
+				cout << "Введен неверный символ! Повторите ввод === " << endl;
+		}
+		int mesto = 0;
+		cout << "Начало жеребьевки --- " << endl;
+		cout << "1 корзина --- " << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << "------------" << endl;
+			if (naida == "NO") {
+				cout << "Подвердите выбор " << i + 1 << " команды " << " (введите любой символ с клавиатуры) === " << endl;
+				string me;
+				cin >> me;
+			}
+			bool vybteam = true;
+			while (vybteam) {
+				int flag = 0;
+				int m = 1 + rand() % 8;
+				for (int i = 0; i < play2.size(); i++) {
+					if (play2[i] == playoff1[0][m - 1])
+						flag = 1;
+				}
+				if (flag == 0) {
+					plyoffm[0][mesto] = playoff1[0][m - 1];
+					cout << playoff1[0][m - 1] << " добавлена в " << mesto + 1 << " встречу" << endl;
+					play2.push_back(playoff1[0][m - 1]);
+					play3.push_back(m - 1);
+					vybteam = false;
+				}
+			}
+			mesto++;
+
+		}
+		int mes = 0;
+		cout << endl;
+		cout << "2 корзина --- " << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << "------------" << endl;
+			if (naida == "NO") {
+				cout << "Подвердите выбор " << i + 1 << " команды " << " (введите любой символ с клавиатуры) === " << endl;
+				string me;
+				cin >> me;
+			}
+			int indexp;
+			bool vybteam = true;
+			while (vybteam) {
+
+				int flag = 0;
+				int mw = 1 + rand() % 8;
+				for (int i = 0; i < play2.size(); i++) {
+					if (play2[i] == playoff1[1][mw - 1])
+						flag = 1;
+				}
+				for (int i = 0; i < 96; i++) {
+					if (namematch[i] == plyoffm[0][mes] + "--- " + playoff1[1][mw - 1])
+						flag = 1;
+				}
+	
+				if (flag == 0) {
+					string one = GetCountry(playoff1[1][mw - 1]);
+					string two = GetCountry(plyoffm[0][mes]);
+					if (one != two) {
+						plyoffm[1][mes] = playoff1[1][mw - 1];
+						cout << playoff1[1][mw - 1] << " добавлена в " << mes + 1 << " встречу" << endl;
+						matchplayoff1[mes] = plyoffm[0][mes] + "--- " + playoff1[1][mw - 1];
+						cout << matchplayoff1[mes] << endl;
+						matchplayoff1[mes + 8] = playoff1[1][mw - 1] + "--- " + plyoffm[0][mes];
+						play2.push_back(playoff1[1][mw - 1]);
+						vybteam = false;
+					}
+				}
+			}
+			mes++;
+		}
+		cout << endl;
+		cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+		string me;
+		cin >> me;
+		PrintMatchPlayoff();
+		cout << endl;
+		cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+		string meqw;
+		cin >> meqw;
+	}
+	void PrintMatchPlayoff() {
+		cout << "1/8 финала --- " << endl;
+		cout << "Первые встречи --- " << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << matchplayoff1[i] << endl;
+		}
+		cout << endl << "Вторые встречи --- " << endl;
+		for (int i = 8; i < 16; i++) {
+			cout << matchplayoff1[i] << endl;
+		}
+	}
+	void PlayMatchPlayoff() {
+		int mestec = 0;
+		cout << "1/8 финала --- " << endl;
+			for (int i = 0; i < 8; i++) {
+				cout << "Первый матч --- " << endl;
+				cout << i + 1 <<". " << matchplayoff1[i] << endl;
+				this ->tem1 = GetTeamOneP(i);
+				int dlc = tem1.size();
+				this-> tem2 = GetTeamTwoP(dlc + 4, i);
+				for (int x = 0; x < 8; x++) {
+					for (int j = 0; j < 4; j++) {
+						if (groupname[x][j] == tem1) {
+							ind1i = x;
+							ind1j = j;
+						}
+					}
+				}
+				for (int x = 0; x < 8; x++) {
+					for (int j = 0; j < 4; j++) {
+						if (groupname[x][j] == tem2) {
+							ind2i = x;
+							ind2j = j;
+						}
+					}
+				}
+				cout << "Введите итоговый счет встречи ('количество голов команды 1-количество голов команды 2) === ";
+				char scet[4];
+				cin >> scet;
+				int firstteam = int(scet[0]) - 48;
+				int secteam = int(scet[2]) - 48;
+				playoffgoals[ind1i][ind1j] = playoffgoals[ind1i][ind1j] + firstteam;
+				playoffgoals[ind2i][ind2j] = playoffgoals[ind2i][ind2j] + secteam;
+
+			}
+			cout << endl << " ---------- " << endl;
+			for (int i = 8; i < 16; i++) {
+				cout << "Второй матч --- " << endl;
+				this->tem2 = GetTeamOneP(i);
+				int dlc = tem2.size();
+				this-> tem1 = GetTeamTwoP(dlc + 4, i);
+				for (int x  = 0; x < 8; x++) {
+					for (int j = 0; j < 4; j++) {
+						if (groupname[x][j] == tem2) {
+							ind2i = x;
+							ind2j = j;
+						}
+					}
+				}
+				for (int x = 0; x < 8; x++) {
+					for (int j = 0; j < 4; j++) {
+						if (groupname[x][j] == tem1) {
+							ind1i = x;
+							ind1j = j;
+						}
+					}
+				}
+				cout << i - 7 << ". " << matchplayoff1[i] << " (" << playoffgoals[ind2i][ind2j] << "-" << playoffgoals[ind1i][ind1j] << ") " << endl;
+				cout << endl;
+				cout << "Введите итоговый счет встречи ('количество голов команды 1-количество голов команды 2) === ";
+				char scet[4];
+				cin >> scet;
+				int secteam = int(scet[0]) - 48;
+				int firstteam = int(scet[2]) - 48;
+				playoffgoals[ind2i][ind2j] = playoffgoals[ind2i][ind2j] + secteam;
+				playoffgoals[ind1i][ind1j] = playoffgoals[ind1i][ind1j] + firstteam;
+
+				if (playoffgoals[ind2i][ind2j] > playoffgoals[ind1i][ind1j]) {
+					cout << "Итоговый счет двухматчевой встречи " << matchplayoff1[i] << " (" << playoffgoals[ind2i][ind2j] << "-" << playoffgoals[ind1i][ind1j] << ") " << endl;
+					cout << tem2 << " выходит в 1/4 !" << endl;
+					namecetvr[mestec] = groupname[ind2i][ind2j];
+					matches.push_back( groupname[ind2i][ind2j]);
+					mestec++;
+				}
+				else if (playoffgoals[ind2i][ind2j] < playoffgoals[ind1i][ind1j]) {
+					cout << "Итоговый счет двухматчевой встречи " << matchplayoff1[i] << " (" << playoffgoals[ind2i][ind2j] << "-" << playoffgoals[ind1i][ind1j] << ") " << endl;
+					cout << tem1 << " выходит в 1/4 !" << endl;
+					namecetvr[mestec] = groupname[ind1i][ind1j];
+					matches.push_back( groupname[ind1i][ind1j]);
+					mestec++;
+				}
+				else if (playoffgoals[ind2i][ind2j] == playoffgoals[ind1i][ind1j]) {
+					cout << "Итоговый счет двухматчевой встречи " << matchplayoff1[i] << " (" << playoffgoals[ind2i][ind2j] << "-" << playoffgoals[ind1i][ind1j] << ") " << endl;
+					cout << endl;
+					cout << "Введите счет послематчевых пенальти === ";
+					char scet[4];
+					cin >> scet;
+					int secteam = int(scet[0]) - 48;
+					int firstteam = int(scet[2]) - 48;
+					bool penka = true;
+					if (secteam > firstteam) {
+						cout << tem2 << " выходит в 1/4 !" << endl;
+						namecetvr[mestec] = groupname[ind2i][ind2j];
+						matches.push_back(groupname[ind2i][ind2j]);
+						mestec++;
+					}
+					if (secteam < firstteam) {
+						cout << tem1 << " выходит в 1/4 !" << endl;
+						namecetvr[mestec] = groupname[ind1i][ind1j];
+						matches.push_back(groupname[ind1i][ind1j]);
+						mestec++;
+					}
+					else if(secteam == firstteam) {
+						while (penka) {
+							cout << "Счет послематчевых пенальти не может быть ничейным! Повторите ввод === ";
+							char scet[4];
+							cin >> scet;
+							int secteam = int(scet[0]) - 48;
+							int firstteam = int(scet[2]) - 48;
+							if (secteam > firstteam) {
+								cout << tem2 << " выходит в 1/4 !" << endl;
+								namecetvr[mestec] = groupname[ind2i][ind2j];
+								matches.push_back( groupname[ind2i][ind2j]);
+								mestec++;
+								penka = false;
+							}
+							if (secteam < firstteam) {
+								cout << tem1 << " выходит в 1/4 !" << endl;
+								namecetvr[mestec] = groupname[ind1i][ind1j];
+								matches.push_back(groupname[ind1i][ind1j]);
+								mestec++;
+								penka = false;
+							}
+						}
+					}
+				}
+				cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+				string meqw;
+				cin >> meqw;
+				cout << endl;
+
+
+			}
+			cout << endl;
+			cout << "Команды, вышедшие в 1/4 турнира --- " << endl;
+			GetTeamC();
+			cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+			string meqw;
+			cin >> meqw;
+			cout << endl;
+			SozdatEight();
+			cout << "1/4 турнира --- " << endl;
+			int mf = 0;
+			for (int i = 0; i < 4; i++) {
+				cout << "Первый матч --- " << endl;
+				cout << i + 1 << ". "<<  namecetvr[i] << endl;
+				string one = GetTeamOneE(i);
+				int dlc = one.size();
+				string two = GetTeamTwoE(i, dlc + 4);
+				for (int x = 0; x < 8; x++) {
+					if (matches[x] == one) {
+						ind1i = x;
+					}
+
+				}
+				for (int x = 0; x < 8; x++) {
+					if (matches[x] == two) {
+						ind2i = x;
+					}
+				}
+				cout << "Введите итоговый счет встречи ('количество голов команды 1-количество голов команды 2) === ";
+				char scet[4];
+				cin >> scet;
+				int firstteam = int(scet[0]) - 48;
+				int secteam = int(scet[2]) - 48;
+				balcetvr[ind1i] = balcetvr[ind1i] + firstteam;
+				balcetvr[ind2i] = balcetvr[ind2i] + secteam;
+				cout << endl;
+			}
+			cout << "------" << endl;
+			for (int i = 4; i < 8; i++) {
+				cout << "Второй матч --- " << endl;
+				string two = GetTeamOneE(i);
+				int dlc = two.size();
+				string one = GetTeamTwoE(i, dlc + 4);
+				for (int x = 0; x < 8; x++) {
+					if (matches[x] == one) {
+						ind1i = x;
+					}
+				}
+				for (int x = 0; x < 8; x++) {
+					if (matches[x] == two) {
+						ind2i = x;
+					}
+				}
+				cout << i -  3 << ". " << namecetvr[i] << " (" << balcetvr[ind2i] << "-" << balcetvr[ind1i] << ") " << endl;
+				cout << endl;
+				cout << "Введите итоговый счет встречи ('количество голов команды 1-количество голов команды 2) === ";
+				char scet[4];
+				cin >> scet;
+				int secteam = int(scet[0]) - 48;
+				int firstteam = int(scet[2]) - 48;
+				balcetvr[ind1i] = balcetvr[ind1i] + firstteam;
+				balcetvr[ind2i] = balcetvr[ind2i] + secteam;
+				if (balcetvr[ind2i] > balcetvr[ind1i]) {
+					cout << "Итоговый счет двухматчевой встречи " << namecetvr[i] << " (" << balcetvr[ind2i] << "-" << balcetvr[ind1i] << ") " << endl;
+					cout << two << " выходит в полуфинал !" << endl;
+					finalpolu[mf] = two;
+					mf++;
+
+				}
+				if (balcetvr[ind2i] < balcetvr[ind1i]) {
+					cout << "Итоговый счет двухматчевой встречи " << namecetvr[i] << " (" << balcetvr[ind2i] << "-" << balcetvr[ind1i] << ") " << endl;
+					cout << one << " выходит в полуфинал !" << endl;
+					finalpolu[mf] = one;
+					mf++;
+
+				}
+				else if (balcetvr[ind2i] == balcetvr[ind1i]) {
+					cout << "Итоговый счет двухматчевой встречи " << namecetvr[i] << " (" << balcetvr[ind2i] << "-" << balcetvr[ind1i] << ") " << endl;
+					cout << endl;
+					cout << "Введите счет послематчевых пенальти === ";
+					char scet[4];
+					cin >> scet;
+					int secteam = int(scet[0]) - 48;
+					int firstteam = int(scet[2]) - 48;
+					bool penka = true;
+					if (secteam > firstteam) {
+						cout << two << " выходит в полуфинал !" << endl;
+						finalpolu[mf] = two;
+						mf++;
+					}
+					if (secteam < firstteam) {
+						cout << one << " выходит в полуфинал !" << endl;
+						finalpolu[mf] = one;
+						mf++;
+					}
+					else if (secteam == firstteam) {
+						while (penka) {
+							cout << "Счет послематчевых пенальти не может быть ничейным! Повторите ввод === ";
+							char scet[4];
+							cin >> scet;
+							int secteam = int(scet[0]) - 48;
+							int firstteam = int(scet[2]) - 48;
+							if (secteam > firstteam) {
+								cout << two << " выходит в полуфинал !" << endl;
+								finalpolu[mf] = two;
+								mf++;
+								penka = false;
+							}
+							if (secteam < firstteam) {
+								cout << one << " выходит в полуфинал !" << endl;
+								finalpolu[mf] = one;
+								mf++;
+								penka = false;
+							}
+						}
+					}
+				}
+				cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+				string meqw;
+				cin >> meqw;
+				
+
+			}
+			cout << "Команды, вышедшие в 1/2 турнира --- " << endl;
+			for (int i = 0; i < 4; i++) {
+				cout << i + 1 << ". " << finalpolu[i] << endl;
+			}
+			cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+			string meqewe;
+			cin >> meqewe;
+
+		
+			cout << "1/2 турнира --- " << endl;
+			cout << "Первый матч --- " << endl;
+			cout << finalpolu[0] + "--- " + finalpolu[2] << endl;
+			cout << "Введите итоговый счет встречи ('количество голов команды 1-количество голов команды 2) === ";
+			char scetm[4];
+			cin >> scetm;
+			int firstteams = int(scetm[0]) - 48;
+			int secteams = int(scetm[2]) - 48;
+			scetpolu[0] = scetpolu[0] + firstteams;
+			scetpolu[2] = scetpolu[2] + secteams;
+			cout << endl;
+			cout << "Первый матч --- " << endl;
+			cout << finalpolu[3] + "--- " + finalpolu[1] << endl;
+			cout << "Введите итоговый счет встречи ('количество голов команды 1-количество голов команды 2) === ";
+			char scete[4];
+			cin >> scete;
+			int firstteame = int(scete[0]) - 48;
+			int secteame = int(scete[2]) - 48;
+			scetpolu[3] = scetpolu[3] + firstteame;
+			scetpolu[1] = scetpolu[1] + secteame;
+			cout << endl;
+			cout << "Второй матч --- " << endl;
+			cout << finalpolu[2] + "--- " + finalpolu[0] << " (" << scetpolu[2] << "-" << scetpolu[0] << ") " << endl;
+			cout << "Введите итоговый счет встречи ('количество голов команды 1-количество голов команды 2) === ";
+			char scets[4];
+			cin >> scets;
+			int firstteamm = int(scets[0]) - 48;
+			int secteamm = int(scets[2]) - 48;
+			scetpolu[2] = scetpolu[2] + firstteamm;
+			scetpolu[0] = scetpolu[0] + secteamm;
+			if (scetpolu[2] > scetpolu[0]) {
+				cout << "Итоговый счет встречи " << finalpolu[2] + "--- " + finalpolu[0] << " (" << scetpolu[2] << "-" << scetpolu[0] << ") " << endl;
+				cout << finalpolu[2] << " вышла в финал !" << endl;
+				finales[0] = (finalpolu[2]);
+			}
+			else if (scetpolu[2] < scetpolu[0]) {
+				cout << "Итоговый счет встречи " << finalpolu[2] + "--- " + finalpolu[0] << " (" << scetpolu[2] << "-" << scetpolu[0] << ") " << endl;
+				cout << finalpolu[0] << " вышла в финал !" << endl;
+				finales[0] = (finalpolu[0]);
+			}
+			else if (scetpolu[2] == scetpolu[0]) {
+				cout << "Итоговый счет встречи " << finalpolu[2] + "--- " + finalpolu[0] << " (" << scetpolu[2] << "-" << scetpolu[0] << ") " << endl;
+				cout << endl;
+				cout << "Введите счет послематчевых пенальти === ";
+				char scetz[4];
+				cin >> scetz;
+				int secteama = int(scetz[0]) - 48;
+				int firstteama = int(scetz[2]) - 48;
+				bool penka = true;
+				if (secteama > firstteama) {
+					cout << finalpolu[2] << " вышла в финал !" << endl;
+					finales[0] = (finalpolu[2]);
+				}
+				else if (secteama < firstteama) {
+					cout << finalpolu[0] << " вышла в финал !" << endl;
+					finales[0] = (finalpolu[0]);
+				}
+				else if (secteama == firstteama) {
+					while (penka) {
+						cout  << "Счет послематчевых пенальти не может быть ничейным! Повторите ввод === ";
+						char scetf[4];
+						cin >> scetf;
+						int secteamr = int(scetf[0]) - 48;
+						int firstteamr = int(scetf[2]) - 48;
+						if (secteamr > firstteamr) {
+							cout << finalpolu[2] << " вышла в финал !" << endl;
+							finales[0] = (finalpolu[2]);
+							penka = false;
+						}
+						else if (secteamr < firstteamr) {
+							cout << finalpolu[0] << " вышла в финал !" << endl;
+							finales[0] = (finalpolu[0]);
+							penka = false;
+						}
+					}
+				}
+			}
+			cout << "Второй матч --- " << endl;
+			cout << finalpolu[1] + "--- " + finalpolu[3] << " (" << scetpolu[1] << "-" << scetpolu[3] << ") " << endl;
+			cout << "Введите итоговый счет встречи ('количество голов команды 1-количество голов команды 2) === ";
+			char scety[4];
+			cin >> scety;
+			int firstteamn = int(scety[0]) - 48;
+			int secteamn = int(scety[2]) - 48;
+			scetpolu[1] = scetpolu[1] + firstteamn;
+			scetpolu[3] = scetpolu[3] + secteamn;
+			if (scetpolu[1] > scetpolu[3]) {
+				cout << "Итоговый счет встречи " << finalpolu[1] + "--- " + finalpolu[3] << " (" << scetpolu[1] << "-" << scetpolu[3] << ") " << endl;
+				cout << finalpolu[1] << " вышла в финал !" << endl;
+				finales[1] = (finalpolu[1]);
+			}
+			else if (scetpolu[1] < scetpolu[3]) {
+				cout << "Итоговый счет встречи " << finalpolu[1] + "--- " + finalpolu[3] << " (" << scetpolu[1] << "-" << scetpolu[3] << ") " << endl;
+				cout << finalpolu[3] << " вышла в финал !" << endl;
+				finales[1] = (finalpolu[3]);
+			}
+			else if (scetpolu[1] == scetpolu[3]) {
+				cout << "Итоговый счет встречи " << finalpolu[1] + "--- " + finalpolu[3] << " (" << scetpolu[1] << "-" << scetpolu[3] << ") " << endl;
+				cout << endl;
+				cout << "Введите счет послематчевых пенальти === ";
+				char scetq[4];
+				cin >> scetq;
+				int secteamu = int(scetq[0]) - 48;
+				int firstteamu = int(scetq[2]) - 48;
+				bool penka = true;
+				if (secteamu > firstteamu) {
+					cout << finalpolu[1] << " вышла в финал !" << endl;
+					finales[1] = (finalpolu[1]);
+				}
+				else if (secteamu < firstteamu) {
+					cout << finalpolu[3] << " вышла в финал !" << endl;
+					finales[1] = (finalpolu[3]);
+				}
+				else if (secteamu == firstteamu) {
+					while (penka) {
+						cout << "Счет послематчевых пенальти не может быть ничейным! Повторите ввод === ";
+						char scetj[4];
+						cin >> scetj;
+						int secteami = int(scetj[0]) - 48;
+						int firstteami = int(scetj[2]) - 48;
+						if (secteami > firstteami) {
+							cout << finalpolu[1] << " вышла в финал !" << endl;
+							finales[1] = (finalpolu[1]);
+							penka = false;
+						}
+						else if (secteami < firstteami) {
+							cout << finalpolu[3] << " вышла в финал !" << endl;
+							finales[1] = (finalpolu[3]);
+							penka = false;
+						}
+					}
+				}
+			}
+			cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+			string meqewesz;
+			cin >> meqewesz;
+			cout << "Финал ---" << endl;
+			cout << finales[1] + "--- " + finales[0] << endl;
+			cout << "Введите итоговый счет встречи ('количество голов команды 1-количество голов команды 2) === ";
+			char scetdr[4];
+			cin >> scetdr;
+			int firstteamk = int(scetdr[0]) - 48;
+			int secteamk = int(scetdr[2]) - 48;
+			if (firstteamk > secteamk) {
+				cout << finales[1] << " выиграл турнир !" << endl;
+			}
+			else if(firstteamk < secteamk) {
+				cout << finales[0] << " выиграл турнир !" << endl;
+			}
+			else if (firstteamk == secteamk) {
+				cout << endl;
+				cout << "Введите счет послематчевых пенальти === ";
+				char scett[4];
+				cin >> scett;
+				int secteams = int(scett[0]) - 48;
+				int firstteams = int(scett[2]) - 48;
+				bool penka = true;
+				if (firstteams > secteams) {
+					cout << finales[1] << " выиграл турнир !" << endl;
+				}
+				else if (firstteams < secteams) {
+					cout << finales[0] << " выиграл турнир !" << endl;
+				}
+				else if (firstteams == secteams) {
+					while (penka) {
+						cout << "Счет послематчевых пенальти не может быть ничейным! Повторите ввод === ";
+						char sceto[4];
+						cin >> sceto;
+						int secteaml = int(sceto[0]) - 48;
+						int firstteaml = int(sceto[2]) - 48;
+						if (firstteaml > secteaml) {
+							cout << finales[1] << " выиграл турнир !" << endl;
+							penka = false;
+						}
+						else if (firstteaml < secteaml) {
+							cout << finales[0] << " выиграл турнир !" << endl;
+							penka = false;
+						}
+					}
+				}
+
+			}
+	}
+	void SozdatMaEight(){
+		namecetvr[0] = matchcetvr[0][0] + "--- " + matchcetvr[1][0];
+		namecetvr[1] = matchcetvr[0][1] + "--- " + matchcetvr[1][1];
+		namecetvr[2] = matchcetvr[0][2] + "--- " + matchcetvr[1][2];
+		namecetvr[3] = matchcetvr[0][3] + "--- " + matchcetvr[1][3];
+		namecetvr[4] = matchcetvr[1][0] + "--- " + matchcetvr[0][0];
+		namecetvr[5] = matchcetvr[1][1] + "--- " + matchcetvr[0][1];
+		namecetvr[6] = matchcetvr[1][2] + "--- " + matchcetvr[0][2];
+		namecetvr[7] = matchcetvr[1][3] + "--- " + matchcetvr[0][3];
+	}
+	void PokazMaEight() {
+		cout << "1/4 турнира --- ";
+		for (int i = 0; i < 8; i++) {
+			if (i == 4) {
+				cout << endl;
+				cout << "Вторые матчи --- " << endl;
+				cout << "-------" << endl;
+			}
+			if (i == 0) {
+				cout << "Первые матчи --- " << endl;
+				cout << "-------" << endl;
+			}
+			cout << namecetvr[i] << endl;
+		}
+	}
+	void GetTeamC() {
+		for (int i = 0; i < 8; i++) {
+			cout << i + 1 << ". " << namecetvr[i] << endl;
+		}
+	}
+	void SozdatEight() {
+		srand(time(NULL));
+		cout << "1/4 турнира --- " << endl;
+		cout << "Вы желаете пропустить жеребьевку и распределение команд? " << endl;
+		cout << "YES - да; NO - нет " << endl;
+		string naida;
+		bool ed = true;
+		while (ed) {
+			cin >> naida;
+			if (naida == "YES")
+				ed = false;
+			else if (naida == "NO")
+				ed = false;
+			else
+				cout << "Введен неверный символ! Повторите ввод === " << endl;
+		}
+		cout << "Начало жеребьевки --- " << endl;
+		int mesto = 0;
+		for (int i = 0; i < 4; i++) {
+			cout << "--------" << endl;
+			if (naida == "NO") {
+				cout << "Подвердите выбор " << i + 1 << " команды " << " (введите любой символ с клавиатуры) === " << endl;
+				string me;
+				cin >> me;
+			}
+			bool vybteam = true;
+			while (vybteam) {
+				int flag = 0;
+				int mw = 1 + rand() % 8;
+				for (int i = 0; i < play4.size(); i++) {
+					if (play4[i] == namecetvr[mw - 1]) {
+						flag = 1;
+					}
+				}
+				if (flag == 0) {
+					matchcetvr[0][mesto] = namecetvr[mw - 1];
+					cout << namecetvr[mw - 1] << " добавлена в " << mesto + 1 << " встречу" << endl;
+					play4.push_back(namecetvr[mw - 1]);
+					mesto++;
+					vybteam = false;
+				}
+			}
+		}
+		int mestov = 0;
+		for (int i = 0; i < 4; i++) {
+			cout << "--------" << endl;
+			if (naida == "NO") {
+				cout << "Подвердите выбор " << i + 1 << " команды " << " (введите любой символ с клавиатуры) === " << endl;
+				string me;
+				cin >> me;
+			}
+			bool vybteam = true;
+			while (vybteam) {
+				int flag = 0;
+				int mw = 1 + rand() % 8;
+				for (int i = 0; i < play4.size(); i++) {
+					if (play4[i] == namecetvr[mw - 1]) {
+						flag = 1;
+					}
+				}
+				if (flag == 0) {
+					matchcetvr[1][mestov] = namecetvr[mw - 1];
+					cout << namecetvr[mw-1] << " добавлена в " << mestov + 1 << " встречу" << endl;
+					cout << matchcetvr[0][mestov] + "--- " + matchcetvr[1][mestov] << endl;
+					play4.push_back(namecetvr[mw - 1]);
+					mestov++;
+					vybteam = false;
+				}
+			}
+		}
+		SozdatMaEight();
+		cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+		string meqw;
+		cin >> meqw;
+		PokazMaEight();
+		cout << "Для продолжения введите любой символ с клавиатуры " << endl;
+		string meqwE;
+		cin >> meqwE;
+	}
+	~GroupName() {
+		cout << "вызван деструктор groupname " << groupname << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << "вызван деструктор" << groupname[i] << endl;
+			delete[] groupname[i];
+		}
+		delete[] groupname;
+		cout << "вызван деструктор groupbal " << groupbal << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << "вызван деструктор" << groupbal[i] << endl;
+			delete[] groupbal[i];
+		}
+		delete[] groupbal;
+		cout << "вызван деструктор groupplus " << groupplus << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << "вызван деструктор" << groupplus[i] << endl;
+			delete[] groupplus[i];
+		}
+		delete[] groupplus;
+		cout << "вызван деструктор groupminus " << groupminus << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << "вызван деструктор" << groupminus[i] << endl;
+			delete[] groupminus[i];
+		}
+		delete[] groupminus;
+		cout << "вызван деструктор calendar " << calendar << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << "вызван деструктор" << calendar[i] << endl;
+			delete[] calendar[i];
+		}
+		cout << "вызван деструктор playoff1 " << playoff1 << endl;
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор" << playoff1[i] << endl;
+			delete[] playoff1[i];
+		}
+		cout << "вызван деструктор plyoffm " << plyoffm << endl;
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор" << plyoffm[i] << endl;
+			delete[] plyoffm[i];
+		}
+		for (int i = 0; i < 8; i++) {
+			cout << "вызван деструктор" << playoffgoals[i] << endl;
+			delete[] playoffgoals[i];
+		}
+		for (int i = 0; i < 2; i++) {
+			cout << "вызван деструктор" << matchcetvr[i] << endl;
+			delete[] matchcetvr[i];
+		}
+		delete[] balcetvr;
+		delete[] playoffgoals;
+		delete[] plyoffm;
+		delete[] playoff1;
+		delete[] calendar;
+		delete[] namematch;
+		delete[] matchplayoff1;
+		delete[] namecetvr;
+		delete[] matchcetvr;
+		delete[] finalpolu;
+		delete[] scetpolu;
+		delete[] finales;
+	}
+	string GetTeamOneP(int index) {
+		int dl = matchplayoff1[index].size();
+		string str = "";
+		for (int i = 0; i < dl; i++) {
+			if (matchplayoff1[index][i] != '-') {
+				str = str + matchplayoff1[index][i];
+			}
+			else
+				break;
+		}
+		return str;
+	}
+	string GetTeamTwoP(int value, int index) {
+		int dl = matchplayoff1[index].size();
+		string str = "";
+		for (int i = value; i < dl; i++) {
+			if (matchplayoff1[index][i] != '-') {
+				str = str + matchplayoff1[index][i];
+			}
+
+			else
+				break;
+		}
+		return str;
+	}
+	string GetTeamone() {
+		int dl = namematch[matchday].size();
+		string str = "";
+		for (int i = 0; i < dl; i++) {
+			if (namematch[matchday][i] != '-') {
+				str = str + namematch[matchday][i];
+			}
+			else
+				break;
+		}
+		return str;
+	}
+	string GetTeamTwo(int value) {
+		int dl = namematch[matchday].size();
+		string str = "";
+		for (int i = value; i < dl; i++) {
+			if (namematch[matchday][i] != '-') {
+				str = str + namematch[matchday][i];
+			}
+
+			else
+				break;
+		}
+		return str;
+	}
+	string GetTeamOneE(int index) {
+		int dl = namecetvr[index].size();
+		string str = "";
+		for (int i = 0; i < dl; i++) {
+			if (namecetvr[index][i] != '-') {
+				str = str + namecetvr[index][i];
+			}
+			else
+				break;
+		}
+		return str;
+	}
+	string GetTeamTwoE(int index, int value) {
+		int dl = namecetvr[index].size();
+		string str = "";
+		for (int i = value; i < dl; i++) {
+			if (namecetvr[index][i] != '-') {
+				str = str + namecetvr[index][i];
+			}
+
+			else
+				break;
+		}
+		return str;
+	}
+	friend Comand;
+	friend ComandBaseName;
+};
+
+class Comand {
+private:
+	int korz;
+	string name;
+	string country;
+	int scetname = 0;
+	int korz1 = 0;
+	int korz2 = 0;
+	int korz3 = 0;
+	int korz4 = 0;
+	int komandscet = 32;
+public:
+
+	void DobavJrebiy(ComandBaseName& vax, string country, int kolvo) {
+		for (int i = 0; i < kolvo; i++) {
+			cout << "Введите название " << i + 1 << " " << country << " команды === ";
+			string name;
+			getline(cin, name);
+			vax.GetKolvoMest();
+			bool getnum = true;
+			cout << "Введите номер корзины (1-4) для жеребьевки ===  ";
+			string korzina;
+			getline(cin, korzina);
+
+			if (korzina != "1" and korzina != "2" and korzina != "3" and korzina != "4") {
+				while (getnum) {
+					cout << "Введен неправильный номер корзины (1-4) - повторите ввод === " ;
+					getline(cin, korzina);
+					if (korzina == "1" or korzina == "2" or korzina == "3" or korzina == "4")
+						getnum = false;
+				}
+			}
+
+			int one = vax.GetMestOne();
+			int two = vax.GetMestTwo();
+			int three = vax.GetMestThree();
+			int four = vax.GetMestFour();
+			if (korzina == "1") {
+				if (korz1 < 2 and one > 0) {
+					korz1++;
+					Getinfo(name, country, 1);
+					GetTeams(vax);
+				}
+				else if (korz1 >= 2 or one == 0) {
+					bool prov = true;
+					while (prov) {
+						cout << "Ввод невозможен - повторите ввод номера корзины для жеребьевки! === ";
+						string korzina;
+						getline(cin, korzina);
+						if (korzina == "2") {
+							if (korz2 < 2 and two > 0) {
+								korz2++;
+								Getinfo(name, country, 2);
+								GetTeams(vax);
+								korzina = "10000000";
+								prov = false;
+							}
+						}
+						else if (korzina == "3") {
+							if (korz3 < 2 and three > 0) {
+								korz3++;
+								Getinfo(name, country, 3);
+								GetTeams(vax);
+								korzina = "10000000";
+								prov = false;
+							}
+						}
+						else if (korzina == "4") {
+							if (korz4 < 2 and four > 0) {
+								korz4++;
+								Getinfo(name, country, 4);
+								GetTeams(vax);
+								korzina = "100000000";
+								prov = false;
+							}
+						}
+					}
+				}
+			}
+			else if (korzina == "2") {
+				if (korz2 < 2 and two > 0) {
+					korz2++;
+					Getinfo(name, country, 2);
+					GetTeams(vax);
+
+				}
+				else if (korz2 >= 2 or two == 0) {
+					bool prov = true;
+					while (prov) {
+						cout << "Ввод невозможен - повторите ввод номера корзины для жеребьевки! === ";
+						string korzina;
+						getline(cin, korzina);
+						if (korzina == "1") {
+							if (korz1 < 2 and one > 0) {
+								korz1++;
+								Getinfo(name, country, 1);
+								GetTeams(vax);
+								korzina = "10000000";
+								prov = false;
+							}
+						}
+						else if (korzina == "3") {
+							if (korz3 < 2 and three > 0) {
+								korz3++;
+								Getinfo(name, country, 3);
+								GetTeams(vax);
+								korzina = "10000000";
+								prov = false;
+							}
+						}
+						else if (korzina == "4") {
+							if (korz4 < 2 and four > 0) {
+								korz4++;
+								Getinfo(name, country, 4);
+								GetTeams(vax);
+								korzina = "100000000";
+								prov = false;
+							}
+						}
+					}
+
+				}
+			}
+			else if (korzina == "3") {
+				if (korz3 < 2 and three > 0) {
+					korz3++;
+					Getinfo(name, country, 3);
+					GetTeams(vax);
+				}
+				else if (korz3 >= 2 or three == 0) {
+					bool prov = true;
+					while (prov) {
+						cout << "Ввод невозможен - повторите ввод номера корзины для жеребьевки! === ";
+						string korzina;
+						getline(cin, korzina);
+						if (korzina == "1") {
+							if (korz1 < 2 and one > 0) {
+								korz1++;
+								Getinfo(name, country, 1);
+								GetTeams(vax);
+								korzina = "10000000";
+								prov = false;
+							}
+						}
+						else if (korzina == "2") {
+							if (korz2 < 2 and two > 0) {
+								korz2++;
+								Getinfo(name, country, 2);
+								GetTeams(vax);
+								korzina = "10000000";
+								prov = false;
+							}
+						}
+						else if (korzina == "4") {
+							if (korz4 < 2 and four > 0) {
+								korz4++;
+								Getinfo(name, country, 4);
+								GetTeams(vax);
+								korzina = "100000000";
+								prov = false;
+							}
+						}
+					}
+				}
+			}
+			else if (korzina == "4") {
+				if (korz4 < 2 and four > 0) {
+					korz4++;
+					Getinfo(name, country, 4);
+					GetTeams(vax);
+				}
+				else if (korz4 >= 2 or four == 0) {
+					bool prov = true;
+					while (prov) {
+						cout << "Ввод невозможен - повторите ввод номера корзины для жеребьевки! === ";
+						string korzina;
+						getline(cin, korzina);
+						if (korzina == "1") {
+							if (korz1 < 2 and one > 0) {
+								korz1++;
+								Getinfo(name, country, 1);
+								GetTeams(vax);
+								korzina = "10000000";
+								prov = false;
+							}
+						}
+						else if (korzina == "2") {
+							if (korz2 < 2 and two > 0) {
+								korz2++;
+								Getinfo(name, country, 2);
+								GetTeams(vax);
+								korzina = "10000000";
+								prov = false;
+							}
+						}
+						else if (korzina == "3") {
+							if (korz3 < 2 and three > 0) {
+								korz3++;
+								Getinfo(name, country, 3);
+								GetTeams(vax);
+								korzina = "100000000";
+								prov = false;
+							}
+						}
+					}
+				}
+			}
+			cout << " -------------- " << endl;
+
+
+		}
+		korz1 = 0;
+		korz2 = 0;
+		korz3 = 0;
+		korz4 = 0;
+		komandscet = komandscet - kolvo;
+		cout << country << " команды добавлены в корзины" << endl;
+		cout << "Осталось добавить " << komandscet << " команд" << endl;
+		cout << endl;
+	}
+	void Getinfo(string name, string country, int value) {
+		this->name = name;
+		this->country = country;
+		this->korz = value;
+	}
+	void GetTeams(ComandBaseName & va) {
+		if (this->korz == 1) {
+			va.teamsname[0][va.index1] = name + " (" + country + ") ";
+			va.index1++;
+		}
+		else if (this->korz == 2) {
+			va.teamsname[1][va.index2] = name + " (" + country + ") ";
+			va.index2++;
+		}
+		else if (this->korz == 3) {
+			va.teamsname[2][va.index3] = name + " (" + country + ") ";
+			va.index3++;
+		
+		}
+		else if (this->korz == 4) {
+			va.teamsname[3][va.index4] = name + " (" + country + ") ";
+			va.index4++;
+		}
+	}
+};
+class Spain :public Comand {
+private:
+	const int scetspain = 4;
+	int s = 0;
+	vector <string> spnname;
+	string countr = "Spain";
+public:
+	Spain(Comand& ve, ComandBaseName& vax) {
+		cout << "ИСПАНИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 4);
+	}
+};
+class France :public Comand {
+private:
+	const int scetfrance = 3;
+	int s = 0;
+	vector <string> frcname;
+	string countr = "France";
+public:
+	France(Comand& ve, ComandBaseName& vax) {
+		cout << "ФРАНЦИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 3);
+	}
+
+};
+class England :public Comand {
+private:
+	const int scetengl = 4;
+	int s = 0;
+	vector <string> aname;
+	string countr = "England";
+public:
+	England(Comand& ve, ComandBaseName& vax) {
+		cout << "АНГЛИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 4);
+	}
+
+};
+class Germany :public Comand {
+private:
+	const int scetger = 4;
+	int s = 0;
+	vector <string> gername;
+	string countr = "Germany";
+public:
+	Germany(Comand& ve, ComandBaseName& vax) {
+		cout << "ГЕРМАНИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 4);
+	}
+
+};
+class Italy :public Comand {
+private:
+	const int scetit = 4;
+	int s = 0;
+	vector <string> itname;
+	string countr = "Italy";
+public:
+	Italy(Comand& ve, ComandBaseName& vax) {
+		cout << "ИТАЛИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 4);
+	}
+
+};
+class Holand :public Comand {
+private:
+	const int scetned = 2;
+	int s = 0;
+	vector <string> nedname;
+	string countr = "Netherlands";
+public:
+	Holand(Comand& ve, ComandBaseName& vax) {
+		cout << "НИДЕРЛАНДЫ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 2);
+	}
+
+};
+class Belgium :public Comand {
+private:
+	const int scetbel = 1;
+	int s = 0;
+	vector <string> belname;
+	string countr = "Belgium";
+public:
+	Belgium(Comand& ve, ComandBaseName& vax) {
+		cout << "БЕЛЬГИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 1);
+	}
+
+};
+class Portugal :public Comand {
+private:
+	const int scetpor = 3;
+	int s = 0;
+	vector <string> porname;
+	string countr = "Portugal";
+public:
+	Portugal(Comand& ve, ComandBaseName& vax) {
+		cout << "ПОРТУГАЛИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 3);
+	}
+
+};
+class Czech :public Comand {
+private:
+	const int scetcz = 1;
+	int s = 0;
+	vector <string> cziname;
+	string countr = "Czech";
+public:
+	Czech(Comand& ve, ComandBaseName& vax) {
+		cout << "ЧЕХИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 1);
+	}
+
+};
+class Austria :public Comand {
+private:
+	const int austrscet = 2;
+	int s = 0;
+	vector <string> auname;
+	string countr = "Austria";
+public:
+	Austria(Comand& ve, ComandBaseName& vax) {
+		cout << "АВСТРИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 2);
+	}
+
+};
+class Serbia :public Comand {
+private:
+	const int serbscet =1 ;
+	int s = 0;
+	vector <string> serbname;
+	string countr = "Serbia";
+public:
+	Serbia(Comand& ve, ComandBaseName& vax) {
+		cout << "ПОРТУГАЛИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 1);
+	}
+
+};
+class Croatia :public Comand {
+private:
+	const int croscet = 1;
+	int s = 0;
+	vector <string> croname;
+	string countr = "Croatia";
+public:
+	Croatia(Comand& ve, ComandBaseName& vax) {
+		cout << "ХОРВАТИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 1);
+	}
+
+};
+class Turkey :public Comand {
+private:
+	const int turscet = 1;
+	int s = 0;
+	vector <string> turname;
+	string countr = "Turkey";
+public:
+	Turkey(Comand& ve, ComandBaseName& vax) {
+		cout << "ТУРЦИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 1);
+	}
+
+};
+class Denmark :public Comand {
+private:
+	const int denscet = 1;
+	int s = 0;
+	vector <string> denname;
+	string countr = "Denmark";
+public:
+	Denmark(Comand& ve, ComandBaseName& vax) {
+		cout << "ДАНИЯ" << endl;
+		cout << "------ " << endl;
+		ve.DobavJrebiy(vax, countr, 1);
+	}
+
+};
+
+
+int main() {
+	setlocale(LC_ALL, "RU");
+	ComandBaseName Base;
+	Comand Name;
+	Spain sp(Name, Base);
+	France fr(Name, Base);
+	England en(Name, Base);
+	Germany ger(Name, Base);
+	Italy it(Name, Base);
+	Holand ned(Name, Base);
+	Belgium bel(Name, Base);
+	Portugal por(Name, Base);
+	Czech ur(Name, Base);
+	Austria au(Name, Base);
+	Serbia serb(Name, Base);
+	Croatia cr(Name, Base);
+	Turkey tur(Name, Base);
+	Denmark den(Name, Base);
+	GroupName me;
+	cout << endl;
+
+	me.SozdatGroup(Base);
+	for (int i = 0; i < 6; i++) {
+		me.PlayMatchGroup();
+	}
+	me.SozdatPlayoff();
+	me.PlayMatchPlayoff();
+}
