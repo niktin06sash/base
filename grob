@@ -1,4 +1,4 @@
-#include <iostream>;
+##include <iostream>;
 #include <string>;
 #include <vector>;
 
@@ -251,6 +251,8 @@ public:
 	}
 
 	void SozdatGroup(ComandBaseName& nam) {
+		nam.PrintKorz();
+		cout << endl;
 		srand(time(NULL));
 		cout << "Вы желаете пропустить жеребьевку и распределение по группам? " << endl;
 		cout << "YES - да; NO - нет " << endl;
@@ -1874,7 +1876,9 @@ public:
 		korz3 = 0;
 		korz4 = 0;
 		komandscet = komandscet - kolvo;
-		cout << country << " команды добавлены в корзины" << endl;
+		if (kolvo > 0) {
+			cout << country << " команды добавлены в корзины" << endl;
+		}
 		cout << "Осталось добавить " << komandscet << " команд" << endl;
 		cout << endl;
 	}
@@ -1902,31 +1906,158 @@ public:
 			va.index4++;
 		}
 	}
+	int GetKolvoJrebiy() {
+		return this->komandscet;
+	}
+	int GetTOP5() {
+		cout << endl;
+		cout << "Введите количество команд (минимум 0 - максимум 4) === ";
+		string kolvo;
+		getline(cin, kolvo);
+		if (kolvo != "1" and kolvo != "0" and kolvo != "2" and kolvo != "3" and kolvo != "4") {
+			bool fc = true;
+			while (fc) {
+				cout << "Введено некорректное значение - повторите ввод === ";
+				getline(cin, kolvo);
+				if (kolvo == "1" or kolvo == "0" or kolvo == "2" or kolvo == "3" or kolvo == "4")
+					fc = false;
+			}
+		}
+		int kolvoe = stoi(kolvo);
+		if (kolvoe < 0 or kolvoe > 4) {
+			bool treb = true;
+			while (treb) {
+				cout << "Введено некорректное значение - повторите ввод === " ;
+				getline(cin, kolvo);
+				kolvoe = stoi(kolvo);
+				if (kolvoe >= 0 and kolvoe < 5) {
+					treb = false;
+				}
+			}
+		}
+		return kolvoe;
+	}
+	int GetTOP4() {
+		cout << endl;
+		cout << "Введите количество команд (минимум 0 - максимум 3) === ";
+		string kolvo;
+		getline(cin, kolvo);
+		if (kolvo != "1" and kolvo != "0" and kolvo != "2" and kolvo != "3") {
+			bool fc = true;
+			while (fc) {
+				cout << "Введено некорректное значение - повторите ввод === ";
+				getline(cin, kolvo);
+				if (kolvo == "1" or kolvo == "0" or kolvo == "2" or kolvo == "3" )
+					fc = false;
+			}
+		}
+		int kolvoe = stoi(kolvo);
+		if (kolvoe < 0 or kolvoe > 3) {
+			bool treb = true;
+			while (treb) {
+				cout << "Введено некорректное значение - повторите ввод === ";
+				getline(cin, kolvo);
+				kolvoe = stoi(kolvo);
+				if (kolvoe >= 0 and kolvoe < 4) {
+					treb = false;
+				}
+			}
+		}
+		return kolvoe;
+	}
+	int GetTOP3() {
+		cout << endl;
+		cout << "Введите количество команд (минимум 0 - максимум 2) === ";
+		string kolvo;
+		getline(cin, kolvo);
+		if (kolvo != "1" and kolvo != "0" and kolvo != "2") {
+			bool fc = true;
+			while (fc) {
+				cout << "Введено некорректное значение - повторите ввод === ";
+				getline(cin, kolvo);
+				if (kolvo == "1" or kolvo == "0" or kolvo == "2")
+					fc = false;
+			}
+		}
+		int kolvoe = stoi(kolvo);
+		if (kolvoe < 0 or kolvoe > 2) {
+			bool treb = true;
+			while (treb) {
+				cout << "Введено некорректное значение - повторите ввод === ";
+				getline(cin, kolvo);
+				kolvoe = stoi(kolvo);
+				if (kolvoe >= 0 and kolvoe < 3) {
+					treb = false;
+				}
+			}
+		}
+		return kolvoe;
+	}
+	int GetTOP2() {
+		cout << endl;
+		cout << "Введите количество команд (минимум 0 - максимум 1) === ";
+		string kolvo;
+		getline(cin, kolvo);
+		if (kolvo != "1" and kolvo != "0" ) {
+			bool fc = true;
+			while (fc) {
+				cout << "Введено некорректное - повторите ввод === ";
+				getline(cin, kolvo);
+				if (kolvo == "1" or kolvo == "0")
+					fc = false;
+			}
+		}
+		int kolvoe = stoi(kolvo);
+		if (kolvoe < 0 or kolvoe > 1) {
+			bool treb = true;
+			while (treb) {
+				cout << "Введено некорректное значение - повторите ввод === ";
+				getline(cin, kolvo);
+				int kolvoe = stoi(kolvo);
+				if (kolvoe >= 0 and kolvoe < 2) {
+					treb = false;
+				}
+			}
+		}
+		return kolvoe;
+	}
 };
 class Spain :public Comand {
 private:
 	const int scetspain = 4;
 	int s = 0;
+	int m = 0;
 	vector <string> spnname;
 	string countr = "Spain";
 public:
 	Spain(Comand& ve, ComandBaseName& vax) {
-		cout << "ИСПАНИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 4);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+
+			cout << "ИСПАНИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP5();
+			
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 };
 class France :public Comand {
 private:
 	const int scetfrance = 3;
 	int s = 0;
+	int m = 0;
 	vector <string> frcname;
 	string countr = "France";
 public:
 	France(Comand& ve, ComandBaseName& vax) {
-		cout << "ФРАНЦИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 3);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ФРАНЦИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP5();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
@@ -1934,13 +2065,18 @@ class England :public Comand {
 private:
 	const int scetengl = 4;
 	int s = 0;
+	int m = 0;
 	vector <string> aname;
 	string countr = "England";
 public:
 	England(Comand& ve, ComandBaseName& vax) {
-		cout << "АНГЛИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 4);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "АНГЛИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP5();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
@@ -1948,13 +2084,18 @@ class Germany :public Comand {
 private:
 	const int scetger = 4;
 	int s = 0;
+	int m = 0;
 	vector <string> gername;
 	string countr = "Germany";
 public:
 	Germany(Comand& ve, ComandBaseName& vax) {
-		cout << "ГЕРМАНИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 4);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ГЕРМАНИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP5();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
@@ -1962,13 +2103,18 @@ class Italy :public Comand {
 private:
 	const int scetit = 4;
 	int s = 0;
+	int m = 0;
 	vector <string> itname;
 	string countr = "Italy";
 public:
 	Italy(Comand& ve, ComandBaseName& vax) {
-		cout << "ИТАЛИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 4);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ИТАЛИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP5();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
@@ -1976,13 +2122,19 @@ class Holand :public Comand {
 private:
 	const int scetned = 2;
 	int s = 0;
+	int m = 0;
 	vector <string> nedname;
 	string countr = "Netherlands";
 public:
 	Holand(Comand& ve, ComandBaseName& vax) {
-		cout << "НИДЕРЛАНДЫ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 2);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+
+			cout << "НИДЕРЛАНДЫ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP4();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
@@ -1990,27 +2142,37 @@ class Belgium :public Comand {
 private:
 	const int scetbel = 1;
 	int s = 0;
+	int m = 0;
 	vector <string> belname;
 	string countr = "Belgium";
 public:
 	Belgium(Comand& ve, ComandBaseName& vax) {
-		cout << "БЕЛЬГИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 1);
-	}
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
 
+			cout << "БЕЛЬГИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP3();
+			ve.DobavJrebiy(vax, countr, m);
+		}
+	}
 };
 class Portugal :public Comand {
 private:
 	const int scetpor = 3;
 	int s = 0;
+	int m = 0;
 	vector <string> porname;
 	string countr = "Portugal";
 public:
 	Portugal(Comand& ve, ComandBaseName& vax) {
-		cout << "ПОРТУГАЛИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 3);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ПОРТУГАЛИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP4();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
@@ -2020,11 +2182,16 @@ private:
 	int s = 0;
 	vector <string> cziname;
 	string countr = "Czech";
+	int m = 0;
 public:
 	Czech(Comand& ve, ComandBaseName& vax) {
-		cout << "ЧЕХИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 1);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ЧЕХИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP3();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
@@ -2034,11 +2201,17 @@ private:
 	int s = 0;
 	vector <string> auname;
 	string countr = "Austria";
+	int m = 0;
 public:
 	Austria(Comand& ve, ComandBaseName& vax) {
-		cout << "АВСТРИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 2);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+
+			cout << "АВСТРИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP3();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
@@ -2046,13 +2219,18 @@ class Serbia :public Comand {
 private:
 	const int serbscet =1 ;
 	int s = 0;
+	int m = 0;
 	vector <string> serbname;
 	string countr = "Serbia";
 public:
 	Serbia(Comand& ve, ComandBaseName& vax) {
-		cout << "ПОРТУГАЛИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 1);
+		s = ve.GetKolvoJrebiy(); 
+		if(s > 0){
+			cout << "СЕРБИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP2();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
@@ -2060,13 +2238,18 @@ class Croatia :public Comand {
 private:
 	const int croscet = 1;
 	int s = 0;
+	int m = 0;
 	vector <string> croname;
 	string countr = "Croatia";
 public:
 	Croatia(Comand& ve, ComandBaseName& vax) {
-		cout << "ХОРВАТИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 1);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ХОРВАТИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP2();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
@@ -2074,13 +2257,18 @@ class Turkey :public Comand {
 private:
 	const int turscet = 1;
 	int s = 0;
+	int m = 0;
 	vector <string> turname;
 	string countr = "Turkey";
 public:
 	Turkey(Comand& ve, ComandBaseName& vax) {
-		cout << "ТУРЦИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 1);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ТУРЦИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP3();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
@@ -2088,36 +2276,180 @@ class Denmark :public Comand {
 private:
 	const int denscet = 1;
 	int s = 0;
+	int m = 0;
 	vector <string> denname;
 	string countr = "Denmark";
 public:
 	Denmark(Comand& ve, ComandBaseName& vax) {
-		cout << "ДАНИЯ" << endl;
-		cout << "------ " << endl;
-		ve.DobavJrebiy(vax, countr, 1);
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ДАНИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP2();
+			ve.DobavJrebiy(vax, countr, m);
+		}
 	}
 
 };
+class Swiss :public Comand {
+private:
+	const int turscet = 1;
+	int s = 0;
+	int m = 0;
+	vector <string> turname;
+	string countr = "Switzerland";
+public:
+	Swiss(Comand& ve, ComandBaseName& vax) {
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ШВЕЙЦАРИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP3();
+			ve.DobavJrebiy(vax, countr, m);
+		}
+	}
 
+};
+class Scotland :public Comand {
+private:
+	const int turscet = 1;
+	int s = 0;
+	int m = 0;
+	vector <string> turname;
+	string countr = "Scotland";
+public:
+	Scotland(Comand& ve, ComandBaseName& vax) {
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ШОТЛАНДИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP3();
+			ve.DobavJrebiy(vax, countr, m);
+		}
+	}
 
+};
+class Norway :public Comand {
+private:
+	const int denscet = 1;
+	int s = 0;
+	int m = 0;
+	vector <string> denname;
+	string countr = "Norway";
+public:
+	Norway(Comand& ve, ComandBaseName& vax) {
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "НОРВЕГИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP2();
+			ve.DobavJrebiy(vax, countr, m);
+		}
+	}
+
+};
+class Greece :public Comand {
+private:
+	const int denscet = 1;
+	int s = 0;
+	int m = 0;
+	vector <string> denname;
+	string countr = "Greece";
+public:
+	Greece(Comand& ve, ComandBaseName& vax) {
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ГРЕЦИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP2();
+			ve.DobavJrebiy(vax, countr, m);
+		}
+	}
+
+};
+class Ukraine :public Comand {
+private:
+	const int denscet = 1;
+	int s = 0;
+	int m = 0;
+	vector <string> denname;
+	string countr = "Ukraine";
+public:
+	Ukraine(Comand& ve, ComandBaseName& vax) {
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "УКРАИНА" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP2();
+			ve.DobavJrebiy(vax, countr, m);
+		}
+	}
+
+};
+class Poland :public Comand {
+private:
+	const int denscet = 1;
+	int s = 0;
+	int m = 0;
+	vector <string> denname;
+	string countr = "Poland";
+public:
+	Poland(Comand& ve, ComandBaseName& vax) {
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ПОЛЬША" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP2();
+			ve.DobavJrebiy(vax, countr, m);
+		}
+	}
+
+};
+class Hungary :public Comand {
+private:
+	const int denscet = 1;
+	int s = 0;
+	int m = 0;
+	vector <string> denname;
+	string countr = "Hungary";
+public:
+	Hungary(Comand& ve, ComandBaseName& vax) {
+		s = ve.GetKolvoJrebiy();
+		if (s > 0) {
+			cout << "ВЕНГРИЯ" << endl;
+			cout << "------ " << endl;
+			m = ve.GetTOP2();
+			ve.DobavJrebiy(vax, countr, m);
+		}
+	}
+
+};
 int main() {
 	setlocale(LC_ALL, "RU");
 	ComandBaseName Base;
 	Comand Name;
-	Spain sp(Name, Base);
-	France fr(Name, Base);
 	England en(Name, Base);
-	Germany ger(Name, Base);
+	Spain sp(Name, Base);
 	Italy it(Name, Base);
-	Holand ned(Name, Base);
-	Belgium bel(Name, Base);
+	Germany ge(Name, Base);
+	France fr(Name, Base);
+	Holand hol(Name, Base);
 	Portugal por(Name, Base);
-	Czech ur(Name, Base);
-	Austria au(Name, Base);
-	Serbia serb(Name, Base);
-	Croatia cr(Name, Base);
+	Belgium bel(Name, Base);
 	Turkey tur(Name, Base);
+	Scotland sc(Name, Base);
+	Czech cz(Name, Base);
+	Swiss swz(Name, Base);
+	Austria aue(Name, Base);
 	Denmark den(Name, Base);
+	Norway nor(Name, Base);
+	Greece gr(Name, Base);
+	Ukraine urine(Name, Base);
+	Serbia serb(Name, Base);
+	Poland pol(Name, Base);
+	Croatia cr(Name, Base);
+	Hungary hun(Name, Base);
+
 	GroupName me;
 	cout << endl;
 
